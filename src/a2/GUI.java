@@ -1,13 +1,15 @@
+package a2;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class GUI {
+public class GUI extends JFrame{
 
     /**
      * Create the GUI and show it. For thread safety, this method should be
      * invoked from the event-dispatching thread.
      */
-    private static void createAndShowGUI() {
+    public static void createAndShowGUI() {
 
         JFrame.setDefaultLookAndFeelDecorated(true);
 
@@ -15,13 +17,52 @@ public class GUI {
         JFrame frame = new JFrame("Assignment2");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Add the label.
-        JLabel label = new JLabel("The First Step...");
-        frame.getContentPane().add(label); // PREFERRED WAY TO ADD COMPONENTS
-//      frame.add(label);
+        //Create the menu bar
+        JMenuBar mainMenuBar = new JMenuBar();
+        mainMenuBar.setOpaque(true);
+        mainMenuBar.setBackground(Color.white);
+        mainMenuBar.setPreferredSize(new Dimension(200, 40));
+        JMenu menuItem = new JMenu("File");
+        mainMenuBar.add(menuItem);
+
+        //create tool panel
+        JPanel toolPanel = new JPanel();
+        toolPanel.setLayout(new BoxLayout(toolPanel, BoxLayout.Y_AXIS));
+        toolPanel.add(Box.createHorizontalGlue());
+        toolPanel.setMaximumSize( new Dimension(  150, 500) );
+        toolPanel.setBackground(Color.GREEN);
+        toolPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        //add buttons to toolpanel
+        JButton plotButton = new JButton("PLOT");
+        toolPanel.add(plotButton);
+        JButton lineButton = new JButton("LINE");
+        toolPanel.add(lineButton);
+        JButton rectangleButton = new JButton("RECTANGLE");
+        toolPanel.add(rectangleButton);
+        JButton ellipseButton = new JButton("ELLIPSE");
+        toolPanel.add(ellipseButton);
+        JButton polygonButton = new JButton("POLYGON");
+        toolPanel.add(polygonButton);
+        JButton penColourButton = new JButton("PEN COLOUR");
+        toolPanel.add(penColourButton);
+        JButton fillButton = new JButton("FILL");
+        toolPanel.add(fillButton);
+        JButton undoButton = new JButton("UNDO");
+        toolPanel.add(undoButton);
+
+        //create label
+        JLabel label = new JLabel("Canvas goes here!");
+
+        //Add components
+        frame.setJMenuBar(mainMenuBar);
+        //add toolpanel
+        frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
+        frame.getContentPane().add(toolPanel);
+        frame.getContentPane().add(label); //add component
 
         //Display the window.
-        frame.setPreferredSize(new Dimension(300, 100));
+        frame.setPreferredSize(new Dimension(1000, 500));
         frame.setLocation(new Point(200, 200));
         frame.pack();
         frame.setVisible(true);
