@@ -22,8 +22,18 @@ public class GUI extends JFrame{
         mainMenuBar.setOpaque(true);
         mainMenuBar.setBackground(Color.white);
         mainMenuBar.setPreferredSize(new Dimension(200, 40));
-        JMenu menuItem = new JMenu("File");
-        mainMenuBar.add(menuItem);
+        JMenu menuFile = new JMenu("File");
+        JMenu menuEdit = new JMenu("Edit");
+        JMenuItem menuNew = new JMenuItem("New");
+        JMenuItem menuSave = new JMenuItem("Save");
+        JMenuItem menuLoad = new JMenuItem("Load");
+        JMenuItem menuUndo = new JMenuItem("Undo");
+        mainMenuBar.add(menuFile);
+        mainMenuBar.add(menuEdit);
+        menuFile.add(menuNew);
+        menuFile.add(menuSave);
+        menuFile.add(menuLoad);
+        menuEdit.add(menuUndo);
 
         //create tool panel
         JPanel toolPanel = new JPanel();
@@ -48,8 +58,6 @@ public class GUI extends JFrame{
         toolPanel.add(penColourButton);
         JButton fillButton = new JButton("FILL");
         toolPanel.add(fillButton);
-        JButton undoButton = new JButton("UNDO");
-        toolPanel.add(undoButton);
 
         //create label
         JLabel label = new JLabel("Canvas goes here!");
