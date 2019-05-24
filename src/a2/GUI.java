@@ -3,7 +3,27 @@ package a2;
 import javax.swing.*;
 import java.awt.*;
 
+class SquarePanel extends JPanel {
+
+    @Override
+    public Dimension getPreferredSize() {
+        Dimension d = super.getPreferredSize();
+        Container c = getParent();
+        if (c != null) {
+            d = c.getSize();
+        } else {
+            return new Dimension(10, 10);
+        }
+        int w = (int) d.getWidth();
+        int h = (int) d.getHeight();
+        int s = (w < h ? w : h);
+        return new Dimension(s, s);
+    }
+}
+
 public class GUI extends JFrame {
+
+
 
     /**
      * Create the GUI and show it. For thread safety, this method should be
@@ -16,6 +36,8 @@ public class GUI extends JFrame {
         //Create and set up the window.
         JFrame frame = new JFrame("CAB302 Assignment 2");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel mainPanel = new JPanel(new BorderLayout());
+
 
         //Create the menu bar
         JMenuBar mainMenuBar = new JMenuBar();
@@ -40,15 +62,19 @@ public class GUI extends JFrame {
         menuLoad.addActionListener(new MenuActionListener());
         menuUndo.addActionListener(new MenuActionListener());
 
+        //create canvas panel
+        JPanel squarePanel = new JPanel(new GridBagLayout());
+        squarePanel.setBackground(Color.RED);
+        SquarePanel canvas = new SquarePanel();
+        canvas.setBackground(Color.WHITE);
+        squarePanel.add(canvas);
+
         //create tool panel
-        JPanel toolPanel = new JPanel();
-        toolPanel.setLayout(new BoxLayout(toolPanel, BoxLayout.Y_AXIS));
-        toolPanel.add(Box.createHorizontalGlue());
-        toolPanel.setMaximumSize( new Dimension(  150, 500) );
+        JPanel toolPanel = new JPanel(new GridLayout(9, 1));
         toolPanel.setBackground(Color.GREEN);
-        toolPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         //add graphical tool buttons to toolpanel
+
         JButton plotButton = new JButton("PLOT");
         toolPanel.add(plotButton);
         JButton lineButton = new JButton("LINE");
@@ -72,16 +98,12 @@ public class GUI extends JFrame {
         penColourButton.addActionListener(new ToolButtonListener());
         fillButton.addActionListener(new ToolButtonListener());
 
-        //create label
-        JLabel label = new JLabel("Canvas goes here!");
-
         //Add menuBar
         frame.setJMenuBar(mainMenuBar);
-        //add toolPanel on the left
-        frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
-        frame.getContentPane().add(toolPanel);
-        //add Canvas
-        frame.getContentPane().add(label); //add component
+        //add toolPanel on left, canvas
+        mainPanel.add(toolPanel, BorderLayout.WEST);
+        mainPanel.add(squarePanel);
+        frame.add(mainPanel);
 
         //Display the window.
         frame.setPreferredSize(new Dimension(1000, 500));
