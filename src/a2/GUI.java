@@ -3,7 +3,7 @@ package a2;
 import javax.swing.*;
 import java.awt.*;
 
-public class GUI extends JFrame{
+public class GUI extends JFrame {
 
     /**
      * Create the GUI and show it. For thread safety, this method should be
@@ -14,7 +14,7 @@ public class GUI extends JFrame{
         JFrame.setDefaultLookAndFeelDecorated(true);
 
         //Create and set up the window.
-        JFrame frame = new JFrame("Assignment2");
+        JFrame frame = new JFrame("CAB302 Assignment 2");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create the menu bar
@@ -34,6 +34,11 @@ public class GUI extends JFrame{
         menuFile.add(menuSave);
         menuFile.add(menuLoad);
         menuEdit.add(menuUndo);
+        //add action listeners for menuItems
+        menuNew.addActionListener(new MenuActionListener());
+        menuSave.addActionListener(new MenuActionListener());
+        menuLoad.addActionListener(new MenuActionListener());
+        menuUndo.addActionListener(new MenuActionListener());
 
         //create tool panel
         JPanel toolPanel = new JPanel();
@@ -43,7 +48,7 @@ public class GUI extends JFrame{
         toolPanel.setBackground(Color.GREEN);
         toolPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        //add buttons to toolpanel
+        //add graphical tool buttons to toolpanel
         JButton plotButton = new JButton("PLOT");
         toolPanel.add(plotButton);
         JButton lineButton = new JButton("LINE");
@@ -58,15 +63,24 @@ public class GUI extends JFrame{
         toolPanel.add(penColourButton);
         JButton fillButton = new JButton("FILL");
         toolPanel.add(fillButton);
+        //add action listeners for tool buttons
+        plotButton.addActionListener(new ToolButtonListener());
+        lineButton.addActionListener(new ToolButtonListener());
+        rectangleButton.addActionListener(new ToolButtonListener());
+        ellipseButton.addActionListener(new ToolButtonListener());
+        polygonButton.addActionListener(new ToolButtonListener());
+        penColourButton.addActionListener(new ToolButtonListener());
+        fillButton.addActionListener(new ToolButtonListener());
 
         //create label
         JLabel label = new JLabel("Canvas goes here!");
 
-        //Add components
+        //Add menuBar
         frame.setJMenuBar(mainMenuBar);
-        //add toolpanel
+        //add toolPanel on the left
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
         frame.getContentPane().add(toolPanel);
+        //add Canvas
         frame.getContentPane().add(label); //add component
 
         //Display the window.
