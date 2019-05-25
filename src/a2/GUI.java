@@ -2,8 +2,6 @@ package a2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-
 
 class SquarePanel extends JPanel {
 
@@ -58,9 +56,6 @@ public class GUI extends JFrame {
         menuFile.add(menuSave);
         menuFile.add(menuLoad);
         menuEdit.add(menuUndo);
-        //
-        KeyStroke keyStrokeToUndo = KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK);
-        menuUndo.setAccelerator(keyStrokeToUndo);
         //add action listeners for menuItems
         menuNew.addActionListener(new MenuActionListener());
         menuSave.addActionListener(new MenuActionListener());
@@ -69,14 +64,14 @@ public class GUI extends JFrame {
 
         //create canvas panel
         JPanel squarePanel = new JPanel(new GridBagLayout());
-        squarePanel.setBackground(Color.LIGHT_GRAY);
+        squarePanel.setBackground(Color.RED);
         SquarePanel canvas = new SquarePanel();
         canvas.setBackground(Color.WHITE);
         squarePanel.add(canvas);
 
         //create tool panel
         JPanel toolPanel = new JPanel(new GridLayout(9, 1));
-        toolPanel.setBackground(Color.GRAY);
+        toolPanel.setBackground(Color.GREEN);
 
         //add graphical tool buttons to toolpanel
 
