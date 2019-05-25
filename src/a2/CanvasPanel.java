@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 class CanvasPanel extends JPanel implements MouseListener {
-    //String tool;
+    String tool;
     private Point startPoint = null;
     private Point endPoint = null;
 
@@ -25,13 +25,16 @@ class CanvasPanel extends JPanel implements MouseListener {
         return new Dimension(s, s);
     }
 
-    /*public void setTool(String tool)
+    public void setTool(String tool)
     {
+
         this.tool = tool;
-    }*/
+        System.out.println("tool input: " + tool);
+        System.out.println("tool set: " + this.tool);
+    }
 
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Mouse clicked on canvas");
+        System.out.println("Mouse clicked on canvas, tool: " + tool);
     }
     public void mouseEntered(MouseEvent e){
         System.out.println("Mouse entered canvas");

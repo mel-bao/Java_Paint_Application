@@ -2,6 +2,8 @@ package a2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 
@@ -9,19 +11,19 @@ import java.awt.event.KeyEvent;
 
 public class GUI extends JFrame {
 
-
+    CanvasPanel canvas;
 
     /**
      * Create the GUI and show it. For thread safety, this method should be
      * invoked from the event-dispatching thread.
      */
-    public static void createAndShowGUI() {
-
-        JFrame.setDefaultLookAndFeelDecorated(true);
+    public GUI() {
+        super("CAB302 Assignment 2");
+        //JFrame.setDefaultLookAndFeelDecorated(true);
 
         //Create and set up the window.
-        JFrame frame = new JFrame("CAB302 Assignment 2");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel mainPanel = new JPanel(new BorderLayout());
 
 
@@ -54,11 +56,12 @@ public class GUI extends JFrame {
         //create canvas panel
         JPanel squarePanel = new JPanel(new GridBagLayout());
         squarePanel.setBackground(Color.LIGHT_GRAY);
-        CanvasPanel canvas = new CanvasPanel();
+        canvas = new CanvasPanel();
         //add mouse listener so canvas can handle mouse events
         canvas.addMouseListener(canvas);
         canvas.setBackground(Color.WHITE);
         squarePanel.add(canvas);
+
 
         //create tool panel
         JPanel toolPanel = new JPanel(new GridLayout(9, 1));
@@ -90,16 +93,28 @@ public class GUI extends JFrame {
         fillButton.addActionListener(new ToolButtonListener());
 
         //Add menuBar
-        frame.setJMenuBar(mainMenuBar);
+        setJMenuBar(mainMenuBar);
         //add toolPanel on left, canvas
         mainPanel.add(toolPanel, BorderLayout.WEST);
         mainPanel.add(squarePanel);
-        frame.add(mainPanel);
+        add(mainPanel);
 
         //Display the window.
-        frame.setPreferredSize(new Dimension(1000, 500));
-        frame.setLocation(new Point(200, 200));
-        frame.pack();
-        frame.setVisible(true);
+        setPreferredSize(new Dimension(1000, 500));
+        setLocation(new Point(200, 200));
+        pack();
+        setVisible(true);
+    }
+
+    private class ToolButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Selected: " + e.getActionCommand());
+            if (e.getActionCommand() == "PLOT") {
+                canvas.setTool("plot");
+            } else if (e.getActionCommand() == "RECTANGLE") {
+                canvas.setTool("rectangle");
+            }
+        }
     }
 }
