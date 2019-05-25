@@ -5,23 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 
-class SquarePanel extends JPanel {
 
-    @Override
-    public Dimension getPreferredSize() {
-        Dimension d = super.getPreferredSize();
-        Container c = getParent();
-        if (c != null) {
-            d = c.getSize();
-        } else {
-            return new Dimension(10, 10);
-        }
-        int w = (int) d.getWidth();
-        int h = (int) d.getHeight();
-        int s = (w < h ? w : h);
-        return new Dimension(s, s);
-    }
-}
 
 public class GUI extends JFrame {
 
@@ -70,7 +54,9 @@ public class GUI extends JFrame {
         //create canvas panel
         JPanel squarePanel = new JPanel(new GridBagLayout());
         squarePanel.setBackground(Color.LIGHT_GRAY);
-        SquarePanel canvas = new SquarePanel();
+        CanvasPanel canvas = new CanvasPanel();
+        //add mouse listener so canvas can handle mouse events
+        canvas.addMouseListener(canvas);
         canvas.setBackground(Color.WHITE);
         squarePanel.add(canvas);
 
