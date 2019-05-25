@@ -6,7 +6,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 class CanvasPanel extends JPanel implements MouseListener {
-    String tool;
+    //String tool;
+    private Point startPoint = null;
+    private Point endPoint = null;
 
     @Override
     public Dimension getPreferredSize() {
@@ -38,9 +40,11 @@ class CanvasPanel extends JPanel implements MouseListener {
         System.out.println("Mouse exited canvas");
     }
     public void mousePressed(MouseEvent e){
-        System.out.println("Mouse pressed");
+        startPoint = e.getPoint();
+        System.out.println("Mouse pressed, start point: " + startPoint);
     }
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Mouse released");
+        System.out.println("Mouse released, end point: " + endPoint);
+        endPoint = e.getPoint();
     }
 }
