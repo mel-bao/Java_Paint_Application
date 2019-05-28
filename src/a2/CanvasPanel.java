@@ -5,12 +5,13 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
-    String tool;
+    Draw tool;
     private Point startPoint = null;
     private Point endPoint = null;
-    private java.util.ArrayList list = new java.util.ArrayList();
+    private ArrayList list = new ArrayList();
 
     @Override
     public Dimension getPreferredSize() {
@@ -27,21 +28,27 @@ class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
         return new Dimension(s, s);
     }
 
-    public void setTool(String tool) {
+    public void setTool(Draw tool) {
         this.tool = tool;
         System.out.println("tool input: " + this.tool);
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         if (startPoint != null) {
-            g.setColor(Color.RED);
-            g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+            tool.draw(list, g);
+            //g.setColor(Color.RED);
+            //g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
         }
     }
 
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Mouse clicked on canvas, tool: " + tool);
+        if(tool instanceof PlotDraw) {
+            list.clear();
+            list.add(startPoint);
+            repaint();
+        }
     }
     public void mouseEntered(MouseEvent e){
         //System.out.println("Mouse entered canvas");
@@ -57,7 +64,7 @@ class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
         System.out.println("Mouse released");
         endPoint = e.getPoint();
         //startPoint = null;
-        if (tool == "line") {
+        if (tool instanceof LineDraw) {
             list.clear();
             list.add(startPoint);
             list.add(endPoint);

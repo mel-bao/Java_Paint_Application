@@ -111,11 +111,13 @@ public class GUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             System.out.println("Selected: " + e.getActionCommand());
             if (e.getActionCommand() == "PLOT") {
-                canvas.setTool("plot");
+                PlotDraw plot = new PlotDraw();
+                canvas.setTool(plot);
             } else if (e.getActionCommand() == "RECTANGLE") {
-                canvas.setTool("rectangle");
+                //canvas.setTool("rectangle");
             } else if (e.getActionCommand() == "LINE") {
-                canvas.setTool("line");
+                LineDraw line = new LineDraw();
+                canvas.setTool(line);
             }
         }
     }
