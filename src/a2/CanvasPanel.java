@@ -8,10 +8,11 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
-    Draw tool;
+    private Draw tool;
     private Point startPoint = null;
     private Point endPoint = null;
     private ArrayList list = new ArrayList();
+    private Boolean polygonDone = false;
 
     @Override
     public Dimension getPreferredSize() {
@@ -30,16 +31,14 @@ class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
 
     public void setTool(Draw tool) {
         this.tool = tool;
-        System.out.println("tool input: " + this.tool);
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (startPoint != null) {
+        if (!list.isEmpty()) {
             tool.draw(list, g);
-            //g.setColor(Color.RED);
-            //g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
         }
     }
 
@@ -48,6 +47,17 @@ class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
             list.clear();
             list.add(startPoint);
             repaint();
+        } else if (tool instanceof PolygonDraw) {
+            //if left click record polygon point
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                System.out.println("left click");
+                list.add(e.getPoint());
+            } // if right click add last point and paint
+            else if (e.getButton() == MouseEvent.BUTTON3) {
+                System.out.println("right click");
+                list.add(e.getPoint());
+                repaint();
+            }
         }
     }
     public void mouseEntered(MouseEvent e){
@@ -58,13 +68,22 @@ class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
     }
     public void mousePressed(MouseEvent e){
         startPoint = e.getPoint();
-        System.out.println("Mouse pressed, start point: " + startPoint);
     }
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Mouse released");
         endPoint = e.getPoint();
+        //flip startPoint and endPoint for drawing rectangle or ellipse
+        if(endPoint.getX() < startPoint.getX()) {
+            Point temp = endPoint;
+            endPoint = startPoint;
+            startPoint = temp;
+        }
+        if(endPoint.getY() < startPoint.getY()) {
+            int temp = (int)endPoint.getY();
+            endPoint.y = (int)startPoint.getY();
+            startPoint.y = temp;
+        }
         //startPoint = null;
-        if (tool instanceof LineDraw) {
+        if (tool instanceof LineDraw || tool instanceof RectangleDraw || tool instanceof EllipseDraw) {
             list.clear();
             list.add(startPoint);
             list.add(endPoint);
@@ -72,11 +91,9 @@ class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
         }
     }
     public void mouseMoved(MouseEvent e) {
-        System.out.println("Mouse moved");
         endPoint = e.getPoint();
     }
     public void mouseDragged(MouseEvent e) {
-        System.out.println("Mouse dragged");
         endPoint = e.getPoint();
         repaint();
     }

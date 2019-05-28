@@ -114,10 +114,17 @@ public class GUI extends JFrame {
                 PlotDraw plot = new PlotDraw();
                 canvas.setTool(plot);
             } else if (e.getActionCommand() == "RECTANGLE") {
-                //canvas.setTool("rectangle");
+                RectangleDraw rect = new RectangleDraw();
+                canvas.setTool(rect);
             } else if (e.getActionCommand() == "LINE") {
                 LineDraw line = new LineDraw();
                 canvas.setTool(line);
+            } else if (e.getActionCommand() == "ELLIPSE") {
+                EllipseDraw elli = new EllipseDraw();
+                canvas.setTool(elli);
+            } else if (e.getActionCommand() == "POLYGON") {
+                PolygonDraw poly = new PolygonDraw();
+                canvas.setTool(poly);
             }
         }
     }
