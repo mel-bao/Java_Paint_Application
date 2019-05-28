@@ -131,6 +131,11 @@ public class GUI extends JFrame {
                 if (c != null) {
                     canvas.setColour(c);
                 }
+            } else if (e.getActionCommand() == "FILL") {
+                Color c = JColorChooser.showDialog(null, "Choose a Color", mainPanel.getForeground());
+                if (c != null) {
+                    canvas.setFillColour(c);
+                }
             }
         }
     }

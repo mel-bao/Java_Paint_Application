@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
     private Draw tool;
     private Color colour;
+    private Color fill;
     private Point startPoint = null;
     private Point endPoint = null;
     private ArrayList<Point> list = new ArrayList<Point>();
@@ -41,6 +42,10 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
 
     public void setColour(Color colour) {
         this.colour = colour;
+    }
+
+    public void setFillColour(Color colour) {
+        this.fill = colour;
     }
 
     @Override
@@ -95,28 +100,31 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         System.out.println(tempList);
         repaint();
     }
-    public void addRectangle(Point s, Point e, Color colour) {
+    public void addRectangle(Point s, Point e, Color colour, Color fill) {
         ArrayList tempList = new ArrayList();
         tempList.add(s);
         tempList.add(e);
         tempList.add(colour);
+        tempList.add(fill);
         listOfRectangles.add(tempList);
         repaint();
     }
-    public void addEllipse(Point s, Point e, Color colour) {
+    public void addEllipse(Point s, Point e, Color colour, Color fill) {
         ArrayList tempList = new ArrayList();
         tempList.add(s);
         tempList.add(e);
         tempList.add(colour);
+        tempList.add(fill);
         listOfEllipses.add(tempList);
         repaint();
     }
-    public void addPolygon(ArrayList<Point> l, Color colour) {
+    public void addPolygon(ArrayList<Point> l, Color colour, Color fill) {
         ArrayList tempList = new ArrayList();
         for (Point p: l) {
             tempList.add(p);
         }
         tempList.add(colour);
+        tempList.add(fill);
         listOfPolygons.add(tempList);
         repaint();
         list.clear();
@@ -134,7 +142,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
             else if (e.getButton() == MouseEvent.BUTTON3) {
                 System.out.println("right click");
                 list.add(e.getPoint());
-                addPolygon(list, colour);
+                addPolygon(list, colour, fill);
             }
         }
     }
@@ -160,9 +168,9 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         if (tool instanceof LineDraw) {
             addLine(startPoint, endPoint, colour);
         } else if (tool instanceof RectangleDraw) {
-            addRectangle(startPoint, endPoint, colour);
+            addRectangle(startPoint, endPoint, colour, fill);
         } else if (tool instanceof EllipseDraw) {
-            addEllipse(startPoint, endPoint, colour);
+            addEllipse(startPoint, endPoint, colour, fill);
         }
     }
     public void mouseMoved(MouseEvent e) {}
