@@ -7,12 +7,13 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
+public class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
     private Draw tool;
     private Point startPoint = null;
     private Point endPoint = null;
-    private ArrayList list = new ArrayList();
-    private Boolean polygonDone = false;
+    private ArrayList<ArrayList<Point>> listOfPlots = new ArrayList<ArrayList<Point>>();
+    private ArrayList<ArrayList<Point>> listOfLines = new ArrayList<ArrayList<Point>>();
+
 
     @Override
     public Dimension getPreferredSize() {
@@ -36,26 +37,40 @@ class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        if (!list.isEmpty()) {
-            tool.draw(list, g);
+        if (!listOfPlots.isEmpty()) {
+            Draw tempTool = new PlotDraw();
+            for (ArrayList plot: listOfPlots) {
+                tempTool.draw(plot, g);
+            }
         }
+        if (!listOfLines.isEmpty()) {
+            Draw tempTool = new LineDraw();
+            for (ArrayList line: listOfLines) {
+                tempTool.draw(line, g);
+            }
+        }
+    }
+
+    public void addPlot(Point plot) {
+        ArrayList<Point> tempList = new ArrayList<Point>();
+        tempList.add(plot);
+        listOfPlots.add(tempList);
+        repaint();
     }
 
     public void mouseClicked(MouseEvent e) {
         if(tool instanceof PlotDraw) {
-            list.clear();
-            list.add(startPoint);
-            repaint();
+            //list.clear();
+            addPlot(startPoint);
         } else if (tool instanceof PolygonDraw) {
             //if left click record polygon point
             if (e.getButton() == MouseEvent.BUTTON1) {
                 System.out.println("left click");
-                list.add(e.getPoint());
+                //list.add(e.getPoint());
             } // if right click add last point and paint
             else if (e.getButton() == MouseEvent.BUTTON3) {
                 System.out.println("right click");
-                list.add(e.getPoint());
+                //list.add(e.getPoint());
                 repaint();
             }
         }
@@ -83,10 +98,22 @@ class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
             startPoint.y = temp;
         }
         //startPoint = null;
-        if (tool instanceof LineDraw || tool instanceof RectangleDraw || tool instanceof EllipseDraw) {
-            list.clear();
-            list.add(startPoint);
-            list.add(endPoint);
+        if (tool instanceof LineDraw) {
+            //list.clear();
+            //list.add(startPoint);
+            //list.add(endPoint);
+            //the following can be implemented in its own method for extensibility??
+            //listOfLines.add(list);
+            repaint();
+        } else if (tool instanceof RectangleDraw) {
+            //list.clear();
+            //list.add(startPoint);
+            //list.add(endPoint);
+            repaint();
+        } else if (tool instanceof EllipseDraw) {
+            //list.clear();
+            //list.add(startPoint);
+            //list.add(endPoint);
             repaint();
         }
     }
