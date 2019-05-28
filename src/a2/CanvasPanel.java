@@ -79,9 +79,10 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
-    public void addPlot(Point plot) {
-        ArrayList<Point> tempList = new ArrayList<Point>();
+    public void addPlot(Point plot, Color colour) {
+        ArrayList tempList = new ArrayList();
         tempList.add(plot);
+        tempList.add(colour);
         listOfPlots.add(tempList);
         repaint();
     }
@@ -94,34 +95,36 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         System.out.println(tempList);
         repaint();
     }
-    public void addRectangle(Point s, Point e) {
-        ArrayList<Point> tempList = new ArrayList<Point>();
+    public void addRectangle(Point s, Point e, Color colour) {
+        ArrayList tempList = new ArrayList();
         tempList.add(s);
         tempList.add(e);
+        tempList.add(colour);
         listOfRectangles.add(tempList);
         repaint();
     }
-    public void addEllipse(Point s, Point e) {
-        ArrayList<Point> tempList = new ArrayList<Point>();
+    public void addEllipse(Point s, Point e, Color colour) {
+        ArrayList tempList = new ArrayList();
         tempList.add(s);
         tempList.add(e);
+        tempList.add(colour);
         listOfEllipses.add(tempList);
         repaint();
     }
-    public void addPolygon(ArrayList<Point> l) {
-        ArrayList<Point> tempList = new ArrayList<Point>();
+    public void addPolygon(ArrayList<Point> l, Color colour) {
+        ArrayList tempList = new ArrayList();
         for (Point p: l) {
             tempList.add(p);
         }
+        tempList.add(colour);
         listOfPolygons.add(tempList);
-        System.out.println(listOfPolygons);
         repaint();
         list.clear();
     }
 
     public void mouseClicked(MouseEvent e) {
         if(tool instanceof PlotDraw) {
-            addPlot(startPoint);
+            addPlot(startPoint, colour);
         } else if (tool instanceof PolygonDraw) {
             //if left click record polygon point
             if (e.getButton() == MouseEvent.BUTTON1) {
@@ -131,7 +134,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
             else if (e.getButton() == MouseEvent.BUTTON3) {
                 System.out.println("right click");
                 list.add(e.getPoint());
-                addPolygon(list);
+                addPolygon(list, colour);
             }
         }
     }
@@ -157,9 +160,9 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         if (tool instanceof LineDraw) {
             addLine(startPoint, endPoint, colour);
         } else if (tool instanceof RectangleDraw) {
-            addRectangle(startPoint, endPoint);
+            addRectangle(startPoint, endPoint, colour);
         } else if (tool instanceof EllipseDraw) {
-            addEllipse(startPoint, endPoint);
+            addEllipse(startPoint, endPoint, colour);
         }
     }
     public void mouseMoved(MouseEvent e) {}

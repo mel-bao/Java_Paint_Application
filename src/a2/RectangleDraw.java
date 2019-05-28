@@ -7,6 +7,7 @@ import java.util.List;
 public class RectangleDraw extends Draw {
     Point startPoint = null;
     Point endPoint = null;
+    Color colour = null;
     public void draw(List list, Graphics g) {
         Iterator it = list.iterator();
         //if the list does not contain the required two points, return.
@@ -16,10 +17,14 @@ public class RectangleDraw extends Draw {
 
         startPoint = (Point)it.next();
         endPoint = (Point)it.next();
+        colour = (Color)it.next();
 
         if(startPoint == null || endPoint == null) {
             return;
         } else {
+            if (colour != null) {
+                g.setColor(colour);
+            }
             g.drawRect((int)startPoint.getX(), (int)startPoint.getY(), (int)(endPoint.getX()-startPoint.getX()), (int)(endPoint.getY()-startPoint.getY()));
         }
     }

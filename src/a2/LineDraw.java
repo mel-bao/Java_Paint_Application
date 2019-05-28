@@ -7,7 +7,7 @@ import java.util.List;
 public class LineDraw extends Draw {
     Point startPoint = null;
     Point endPoint = null;
-    Color colour;
+    Color colour = null;
     public void draw(List list, Graphics g) {
         Iterator it = list.iterator();
         //if the list does not contain the required two points, return.
@@ -18,7 +18,6 @@ public class LineDraw extends Draw {
         startPoint = (Point)it.next();
         endPoint = (Point)it.next();
         colour = (Color)it.next();
-        System.out.println(colour);
 
         if(startPoint == null || endPoint == null) {
             return;
