@@ -114,6 +114,8 @@ public class GUI extends JFrame {
                 canvas.setTool("plot");
             } else if (e.getActionCommand() == "RECTANGLE") {
                 canvas.setTool("rectangle");
+            } else if (e.getActionCommand() == "LINE") {
+                canvas.setTool("line");
             }
         }
     }
