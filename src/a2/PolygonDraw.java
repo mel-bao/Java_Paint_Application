@@ -2,9 +2,10 @@ package a2;
 
 import java.awt.*;
 import java.util.Iterator;
+import java.util.List;
 
 public class PolygonDraw extends Draw{
-    public void draw(java.util.List list, Graphics g) {
+    public void draw(List list, Graphics g) {
         Point point = null;
         Iterator it = list.iterator();
         //if the list does not contain the required two points, return.
@@ -17,6 +18,5 @@ public class PolygonDraw extends Draw{
             p.addPoint((int)point.getX(), (int)point.getY());
         }
         g.drawPolygon(p);
-        list.clear();
     }
 }

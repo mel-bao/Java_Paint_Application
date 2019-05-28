@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 public class GUI extends JFrame {
 
     CanvasPanel canvas;
+    JPanel mainPanel;
 
     /**
      * Create the GUI and show it. For thread safety, this method should be
@@ -24,7 +25,7 @@ public class GUI extends JFrame {
         //Create and set up the window.
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel = new JPanel(new BorderLayout());
 
 
         //Create the menu bar
@@ -79,7 +80,7 @@ public class GUI extends JFrame {
         toolPanel.add(ellipseButton);
         JButton polygonButton = new JButton("POLYGON");
         toolPanel.add(polygonButton);
-        JButton penColourButton = new JButton("PEN COLOUR");
+        JButton penColourButton = new JButton("PEN");
         toolPanel.add(penColourButton);
         JButton fillButton = new JButton("FILL");
         toolPanel.add(fillButton);
@@ -125,6 +126,11 @@ public class GUI extends JFrame {
             } else if (e.getActionCommand() == "POLYGON") {
                 PolygonDraw poly = new PolygonDraw();
                 canvas.setTool(poly);
+            } else if (e.getActionCommand() == "PEN") {
+                Color c = JColorChooser.showDialog(null, "Choose a Color", mainPanel.getForeground());
+                if (c != null) {
+                    canvas.setColour(c);
+                }
             }
         }
     }

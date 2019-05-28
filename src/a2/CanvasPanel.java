@@ -9,10 +9,15 @@ import java.util.ArrayList;
 
 public class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
     private Draw tool;
+    private Color colour;
     private Point startPoint = null;
     private Point endPoint = null;
-    private ArrayList<ArrayList<Point>> listOfPlots = new ArrayList<ArrayList<Point>>();
-    private ArrayList<ArrayList<Point>> listOfLines = new ArrayList<ArrayList<Point>>();
+    private ArrayList<Point> list = new ArrayList<Point>();
+    private ArrayList<ArrayList> listOfPlots = new ArrayList<ArrayList>();
+    private ArrayList<ArrayList> listOfLines = new ArrayList<ArrayList>();
+    private ArrayList<ArrayList> listOfRectangles = new ArrayList<ArrayList>();
+    private ArrayList<ArrayList> listOfEllipses = new ArrayList<ArrayList>();
+    private ArrayList<ArrayList> listOfPolygons = new ArrayList<ArrayList>();
 
 
     @Override
@@ -34,9 +39,14 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         this.tool = tool;
     }
 
+    public void setColour(Color colour) {
+        this.colour = colour;
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         if (!listOfPlots.isEmpty()) {
             Draw tempTool = new PlotDraw();
             for (ArrayList plot: listOfPlots) {
@@ -49,6 +59,24 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
                 tempTool.draw(line, g);
             }
         }
+        if (!listOfRectangles.isEmpty()) {
+            Draw tempTool = new RectangleDraw();
+            for (ArrayList rectangle: listOfRectangles) {
+                tempTool.draw(rectangle, g);
+            }
+        }
+        if (!listOfEllipses.isEmpty()) {
+            Draw tempTool = new EllipseDraw();
+            for (ArrayList ellipse: listOfEllipses) {
+                tempTool.draw(ellipse, g);
+            }
+        }
+        if (!listOfPolygons.isEmpty()) {
+            Draw tempTool = new PolygonDraw();
+            for (ArrayList polygon: listOfPolygons) {
+                tempTool.draw(polygon, g);
+            }
+        }
     }
 
     public void addPlot(Point plot) {
@@ -57,30 +85,58 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         listOfPlots.add(tempList);
         repaint();
     }
+    public void addLine(Point s, Point e, Color colour) {
+        ArrayList tempList = new ArrayList();
+        tempList.add(s);
+        tempList.add(e);
+        tempList.add(colour);
+        listOfLines.add(tempList);
+        System.out.println(tempList);
+        repaint();
+    }
+    public void addRectangle(Point s, Point e) {
+        ArrayList<Point> tempList = new ArrayList<Point>();
+        tempList.add(s);
+        tempList.add(e);
+        listOfRectangles.add(tempList);
+        repaint();
+    }
+    public void addEllipse(Point s, Point e) {
+        ArrayList<Point> tempList = new ArrayList<Point>();
+        tempList.add(s);
+        tempList.add(e);
+        listOfEllipses.add(tempList);
+        repaint();
+    }
+    public void addPolygon(ArrayList<Point> l) {
+        ArrayList<Point> tempList = new ArrayList<Point>();
+        for (Point p: l) {
+            tempList.add(p);
+        }
+        listOfPolygons.add(tempList);
+        System.out.println(listOfPolygons);
+        repaint();
+        list.clear();
+    }
 
     public void mouseClicked(MouseEvent e) {
         if(tool instanceof PlotDraw) {
-            //list.clear();
             addPlot(startPoint);
         } else if (tool instanceof PolygonDraw) {
             //if left click record polygon point
             if (e.getButton() == MouseEvent.BUTTON1) {
                 System.out.println("left click");
-                //list.add(e.getPoint());
+                list.add(e.getPoint());
             } // if right click add last point and paint
             else if (e.getButton() == MouseEvent.BUTTON3) {
                 System.out.println("right click");
-                //list.add(e.getPoint());
-                repaint();
+                list.add(e.getPoint());
+                addPolygon(list);
             }
         }
     }
-    public void mouseEntered(MouseEvent e){
-        //System.out.println("Mouse entered canvas");
-    }
-    public void mouseExited(MouseEvent e){
-        //System.out.println("Mouse exited canvas");
-    }
+    public void mouseEntered(MouseEvent e){}
+    public void mouseExited(MouseEvent e){}
     public void mousePressed(MouseEvent e){
         startPoint = e.getPoint();
     }
@@ -97,31 +153,15 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
             endPoint.y = (int)startPoint.getY();
             startPoint.y = temp;
         }
-        //startPoint = null;
+
         if (tool instanceof LineDraw) {
-            //list.clear();
-            //list.add(startPoint);
-            //list.add(endPoint);
-            //the following can be implemented in its own method for extensibility??
-            //listOfLines.add(list);
-            repaint();
+            addLine(startPoint, endPoint, colour);
         } else if (tool instanceof RectangleDraw) {
-            //list.clear();
-            //list.add(startPoint);
-            //list.add(endPoint);
-            repaint();
+            addRectangle(startPoint, endPoint);
         } else if (tool instanceof EllipseDraw) {
-            //list.clear();
-            //list.add(startPoint);
-            //list.add(endPoint);
-            repaint();
+            addEllipse(startPoint, endPoint);
         }
     }
-    public void mouseMoved(MouseEvent e) {
-        endPoint = e.getPoint();
-    }
-    public void mouseDragged(MouseEvent e) {
-        endPoint = e.getPoint();
-        repaint();
-    }
+    public void mouseMoved(MouseEvent e) {}
+    public void mouseDragged(MouseEvent e) {}
 }
