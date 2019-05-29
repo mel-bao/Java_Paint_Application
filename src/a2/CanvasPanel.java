@@ -154,15 +154,17 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     public void mouseReleased(MouseEvent e) {
         endPoint = e.getPoint();
         //flip startPoint and endPoint for drawing rectangle or ellipse
-        if(endPoint.getX() < startPoint.getX()) {
-            Point temp = endPoint;
-            endPoint = startPoint;
-            startPoint = temp;
-        }
-        if(endPoint.getY() < startPoint.getY()) {
-            int temp = (int)endPoint.getY();
-            endPoint.y = (int)startPoint.getY();
-            startPoint.y = temp;
+        if (tool instanceof RectangleDraw || tool instanceof EllipseDraw) {
+            if (endPoint.getX() < startPoint.getX()) {
+                Point temp = endPoint;
+                endPoint = startPoint;
+                startPoint = temp;
+            }
+            if (endPoint.getY() < startPoint.getY()) {
+                int temp = (int) endPoint.getY();
+                endPoint.y = (int) startPoint.getY();
+                startPoint.y = temp;
+            }
         }
 
         if (tool instanceof LineDraw) {
