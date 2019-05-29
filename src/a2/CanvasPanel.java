@@ -11,6 +11,8 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     private Color fill;
     private Point startPoint = null;
     private Point endPoint = null;
+    private double w;
+    private double h;
     private ArrayList<Point> list = new ArrayList<Point>();
     private ArrayList<ArrayList> listOfShapes = new ArrayList<ArrayList>();
     private ArrayList<ArrayList> listOfDrawableShapes = new ArrayList<ArrayList>();
@@ -66,9 +68,17 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+        listOfDrawableShapes.clear();
         //translate list of shapes with vec co-ords and set as listOfDrawableShapes
-        listOfDrawableShapes = listOfShapes;
+        for (ArrayList list: listOfShapes) {
+            ArrayList tempList = new ArrayList();
+            tempList.add(list.get(0));
+            Point point = translateToDrawableFormat((double)list.get(1), (double)list.get(2));
+            tempList.add(point);
+            tempList.add(list.get(3));
+            listOfDrawableShapes.add(tempList);
+            System.out.println(listOfDrawableShapes);
+        }
 
         if (!listOfDrawableShapes.isEmpty()) {
             for (ArrayList shape: listOfDrawableShapes) {
@@ -92,26 +102,41 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
-    //(0,0) on panel is equivalent to (0,0) Vec co-ordinate
-
-
-    private void translateToVecFormat() {
-
+    private double translateXToVecFormat(Point point) {
+        //(0,0) on panel is equivalent to (0,0) Vec co-ordinate
+        //(w,h) on panel is equivalent to (1,1) Vec co-ordinate
+        double x = 1.0 / (w + 1.0);
+        double xcoord = x * point.getX();
+        return xcoord;
     }
 
-    private void translatetoDrawableFormat() {
+    private double translateYToVecFormat(Point point) {
+        double y = 1.0 / (h + 1.0);
+        double ycoord = y * point.getY();
+        return ycoord;
+    }
 
+    private Point translateToDrawableFormat(double xcoord, double ycoord) {
+        double x = 1.0 / (w + 1.0);
+        double y = 1.0 / (h + 1.0);
+        double xpoint = xcoord / x;
+        double ypoint = ycoord / y;
+        Point p = new Point((int)xpoint, (int)ypoint);
+        return p;
     }
 
     public void addPlot(Point plot, Color colour) {
-        System.out.println(plot);
         ArrayList tempList = new ArrayList();
         Draw tempTool = new PlotDraw();
         tempList.add(tempTool);
-        tempList.add(plot);
+        //tempList.add(plot);
+        double xcoord = translateXToVecFormat(plot);
+        double ycoord = translateYToVecFormat(plot);
+        tempList.add(xcoord);
+        tempList.add(ycoord);
         tempList.add(colour);
-        System.out.println(tempList);
         listOfShapes.add(tempList);
+        System.out.println("listofshapes" + listOfShapes);
         repaint();
     }
     public void addLine(Point s, Point e, Color colour) {
@@ -209,7 +234,10 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     public void mouseDragged(MouseEvent e) {}
 
     public void componentResized(ComponentEvent e) {
-        System.out.println("canvas resized");
+        Dimension d = this.getSize();
+        w = (double) d.getWidth();
+        h = (double) d.getHeight();
+        repaint();
     }
 
     public void componentMoved(ComponentEvent e) {}
