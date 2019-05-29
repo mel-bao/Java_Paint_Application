@@ -81,11 +81,9 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
             if (tool instanceof LineDraw) {
                 g.drawLine(pointStart.x, pointStart.y, pointEnd.x, pointEnd.y);
             } else if (tool instanceof RectangleDraw) {
-                int rw = (int)pointStart.getX() - (int)pointEnd.getX();
-                int rh = (int)pointStart.getY() - (int)pointEnd.getY();
-                g.drawRect(pointStart.x, pointStart.y, rw, rh);
+                //g.drawRect(pointStart.x, pointStart.y, pointStart.x - pointEnd.x, pointStart.y - pointEnd.y);
             } else if (tool instanceof EllipseDraw) {
-                g.drawOval(pointStart.x, pointStart.y, pointStart.x - pointEnd.x, pointStart.y - pointEnd.y);
+                //g.drawOval(pointStart.x, pointStart.y, pointStart.x - pointEnd.x, pointStart.y - pointEnd.y);
             }
         }
 
@@ -180,7 +178,6 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         ArrayList tempList = new ArrayList();
         Draw tempTool = new PlotDraw();
         tempList.add(tempTool);
-        //tempList.add(plot);
         double xcoord = translateXToVecFormat(plot);
         double ycoord = translateYToVecFormat(plot);
         tempList.add(xcoord);
@@ -193,12 +190,10 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         ArrayList tempList = new ArrayList();
         Draw tempTool = new LineDraw();
         tempList.add(tempTool);
-        //tempList.add(s);
         double sxcoord = translateXToVecFormat(s);
         double sycoord = translateYToVecFormat(s);
         tempList.add(sxcoord);
         tempList.add(sycoord);
-        //tempList.add(e);
         double excoord = translateXToVecFormat(e);
         double eycoord = translateYToVecFormat(e);
         tempList.add(excoord);
@@ -211,12 +206,10 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         ArrayList tempList = new ArrayList();
         Draw tempTool = new RectangleDraw();
         tempList.add(tempTool);
-        //tempList.add(s);
         double sxcoord = translateXToVecFormat(s);
         double sycoord = translateYToVecFormat(s);
         tempList.add(sxcoord);
         tempList.add(sycoord);
-        //tempList.add(e);
         double excoord = translateXToVecFormat(e);
         double eycoord = translateYToVecFormat(e);
         tempList.add(excoord);
@@ -230,12 +223,10 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         ArrayList tempList = new ArrayList();
         Draw tempTool = new EllipseDraw();
         tempList.add(tempTool);
-        //tempList.add(s);
         double sxcoord = translateXToVecFormat(s);
         double sycoord = translateYToVecFormat(s);
         tempList.add(sxcoord);
         tempList.add(sycoord);
-        //tempList.add(e);
         double excoord = translateXToVecFormat(e);
         double eycoord = translateYToVecFormat(e);
         tempList.add(excoord);
@@ -250,7 +241,6 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         Draw tempTool = new PolygonDraw();
         tempList.add(tempTool);
         for (Point p: l) {
-            //tempList.add(p);
             double xcoord = translateXToVecFormat(p);
             double ycoord = translateYToVecFormat(p);
             tempList.add(xcoord);
@@ -320,8 +310,8 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
 
     public void componentResized(ComponentEvent e) {
         Dimension d = this.getSize();
-        w = (double) d.getWidth();
-        h = (double) d.getHeight();
+        w = d.getWidth();
+        h = d.getHeight();
         repaint();
     }
 
