@@ -13,6 +13,8 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     private Point endPoint = null;
     private double w;
     private double h;
+    private Point pointStart = null;
+    private Point pointEnd   = null;
     private ArrayList<Point> list = new ArrayList<Point>();
     private ArrayList<ArrayList> listOfShapes = new ArrayList<ArrayList>();
     private ArrayList<ArrayList> listOfDrawableShapes = new ArrayList<ArrayList>();
@@ -73,6 +75,20 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        //continuous drawing on click and drag
+        if (pointStart != null) {
+            if (tool instanceof LineDraw) {
+                g.drawLine(pointStart.x, pointStart.y, pointEnd.x, pointEnd.y);
+            } else if (tool instanceof RectangleDraw) {
+                int rw = (int)pointStart.getX() - (int)pointEnd.getX();
+                int rh = (int)pointStart.getY() - (int)pointEnd.getY();
+                g.drawRect(pointStart.x, pointStart.y, rw, rh);
+            } else if (tool instanceof EllipseDraw) {
+                g.drawOval(pointStart.x, pointStart.y, pointStart.x - pointEnd.x, pointStart.y - pointEnd.y);
+            }
+        }
+
         listOfDrawableShapes.clear();
         //translate list of shapes with vec co-ords and set as listOfDrawableShapes
         for (ArrayList list: listOfShapes) {
@@ -267,9 +283,11 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     public void mouseExited(MouseEvent e){}
     public void mousePressed(MouseEvent e){
         startPoint = e.getPoint();
+        pointStart = e.getPoint();
     }
     public void mouseReleased(MouseEvent e) {
         endPoint = e.getPoint();
+        pointStart = null;
         //flip startPoint and endPoint for drawing rectangle or ellipse
         if (tool instanceof RectangleDraw || tool instanceof EllipseDraw) {
             if (endPoint.getX() < startPoint.getX()) {
@@ -292,8 +310,13 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
             addEllipse(startPoint, endPoint, colour, fill);
         }
     }
-    public void mouseMoved(MouseEvent e) {}
-    public void mouseDragged(MouseEvent e) {}
+    public void mouseMoved(MouseEvent e) {
+        pointEnd = e.getPoint();
+    }
+    public void mouseDragged(MouseEvent e) {
+        pointEnd = e.getPoint();
+        repaint();
+    }
 
     public void componentResized(ComponentEvent e) {
         Dimension d = this.getSize();
