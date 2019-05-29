@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class EllipseDraw extends Draw{
-    Point startPoint = null;
-    Point endPoint = null;
-    Color colour = null;
-    Color fill = null;
+    private Point startPoint = null;
+    private Point endPoint = null;
+    private Color colour = null;
+    private Color fill = null;
     public void draw(List list, Graphics g) {
         Iterator it = list.iterator();
         //if the list does not contain the required two points, return.

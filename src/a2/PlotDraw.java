@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class PlotDraw extends Draw{
-    Point startPoint = null;
-    Color colour = null;
+    private Point startPoint = null;
+    private Color colour = null;
     public void draw(List list, Graphics g) {
         Iterator it = list.iterator();
         //if the list does not contain the required point, return.

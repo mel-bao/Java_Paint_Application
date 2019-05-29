@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class PolygonDraw extends Draw{
-    Color colour = null;
-    Point point = null;
-    Color fill = null;
+    private Color colour = null;
+    private Point point = null;
+    private Color fill = null;
     public void draw(List list, Graphics g) {
         Iterator it = list.iterator();
         //if the list does not contain the required two points, return.
