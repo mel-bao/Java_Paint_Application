@@ -36,12 +36,20 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         this.tool = tool;
     }
 
+    public Draw getTool() {
+        return tool;
+    }
+
     public void setColour(Color colour) {
         this.colour = colour;
     }
 
     public void setFillColour(Color colour) {
         this.fill = colour;
+    }
+
+    public ArrayList<ArrayList> getListOfShapes() {
+        return listOfShapes;
     }
 
     @Override
