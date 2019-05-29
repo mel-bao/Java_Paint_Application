@@ -73,11 +73,18 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         for (ArrayList list: listOfShapes) {
             ArrayList tempList = new ArrayList();
             tempList.add(list.get(0));
-            Point point = translateToDrawableFormat((double)list.get(1), (double)list.get(2));
-            tempList.add(point);
-            tempList.add(list.get(3));
+            if (list.get(0) instanceof PlotDraw) {
+                Point point = translateToDrawableFormat((double) list.get(1), (double) list.get(2));
+                tempList.add(point);
+                tempList.add(list.get(3));
+            } else if (list.get(0) instanceof LineDraw) {
+                Point s = translateToDrawableFormat((double) list.get(1), (double) list.get(2));
+                tempList.add(s);
+                Point e = translateToDrawableFormat((double) list.get(3), (double) list.get(4));
+                tempList.add(e);
+                tempList.add(list.get(5));
+            }
             listOfDrawableShapes.add(tempList);
-            System.out.println(listOfDrawableShapes);
         }
 
         if (!listOfDrawableShapes.isEmpty()) {
@@ -136,15 +143,22 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         tempList.add(ycoord);
         tempList.add(colour);
         listOfShapes.add(tempList);
-        System.out.println("listofshapes" + listOfShapes);
         repaint();
     }
     public void addLine(Point s, Point e, Color colour) {
         ArrayList tempList = new ArrayList();
         Draw tempTool = new LineDraw();
         tempList.add(tempTool);
-        tempList.add(s);
-        tempList.add(e);
+        //tempList.add(s);
+        double sxcoord = translateXToVecFormat(s);
+        double sycoord = translateYToVecFormat(s);
+        tempList.add(sxcoord);
+        tempList.add(sycoord);
+        //tempList.add(e);
+        double excoord = translateXToVecFormat(e);
+        double eycoord = translateYToVecFormat(e);
+        tempList.add(excoord);
+        tempList.add(eycoord);
         tempList.add(colour);
         listOfShapes.add(tempList);
         repaint();
