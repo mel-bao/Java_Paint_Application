@@ -19,12 +19,21 @@ public class PolygonDraw extends Draw{
         Polygon p = new Polygon();
 
         for (int i =0; i < list.size(); i++) {
-            if (i < list.size() - 2) {
+            //the tool type is the first item in the list
+            if (i==0){
+                Draw tempTool = (Draw)it.next();
+            }
+            //the points cover the second to third last items in the list
+            else if (i > 0 && i < list.size() - 2) {
                 point = (Point) it.next();
                 p.addPoint((int) point.getX(), (int) point.getY());
-            } else if (i < list.size() - 1) {
+            }
+            //the pen colour id the penultimate item in the list
+            else if (i < list.size() - 1) {
                 colour = (Color)it.next();
-            } else {
+            }
+            //fill colour is the final item in the list
+            else {
                 fill = (Color)it.next();
             }
         }

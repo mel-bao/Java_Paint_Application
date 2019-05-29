@@ -14,11 +14,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     private Point startPoint = null;
     private Point endPoint = null;
     private ArrayList<Point> list = new ArrayList<Point>();
-    private ArrayList<ArrayList> listOfPlots = new ArrayList<ArrayList>();
-    private ArrayList<ArrayList> listOfLines = new ArrayList<ArrayList>();
-    private ArrayList<ArrayList> listOfRectangles = new ArrayList<ArrayList>();
-    private ArrayList<ArrayList> listOfEllipses = new ArrayList<ArrayList>();
-    private ArrayList<ArrayList> listOfPolygons = new ArrayList<ArrayList>();
+    private ArrayList<ArrayList> listOfShapes = new ArrayList<ArrayList>();
 
 
     @Override
@@ -52,80 +48,79 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (!listOfPlots.isEmpty()) {
-            Draw tempTool = new PlotDraw();
-            for (ArrayList plot: listOfPlots) {
-                tempTool.draw(plot, g);
-            }
-        }
-        if (!listOfLines.isEmpty()) {
-            Draw tempTool = new LineDraw();
-            for (ArrayList line: listOfLines) {
-                tempTool.draw(line, g);
-            }
-        }
-        if (!listOfRectangles.isEmpty()) {
-            Draw tempTool = new RectangleDraw();
-            for (ArrayList rectangle: listOfRectangles) {
-                tempTool.draw(rectangle, g);
-            }
-        }
-        if (!listOfEllipses.isEmpty()) {
-            Draw tempTool = new EllipseDraw();
-            for (ArrayList ellipse: listOfEllipses) {
-                tempTool.draw(ellipse, g);
-            }
-        }
-        if (!listOfPolygons.isEmpty()) {
-            Draw tempTool = new PolygonDraw();
-            for (ArrayList polygon: listOfPolygons) {
-                tempTool.draw(polygon, g);
+        if (!listOfShapes.isEmpty()) {
+            for (ArrayList shape: listOfShapes) {
+                if (shape.get(0) instanceof PlotDraw) {
+                    Draw tempTool = new PlotDraw();
+                    tempTool.draw(shape, g);
+                } else if (shape.get(0) instanceof LineDraw) {
+                    Draw tempTool = new LineDraw();
+                    tempTool.draw(shape, g);
+                } else if (shape.get(0) instanceof RectangleDraw) {
+                    Draw tempTool = new RectangleDraw();
+                    tempTool.draw(shape, g);
+                } else if (shape.get(0) instanceof EllipseDraw) {
+                    Draw tempTool = new EllipseDraw();
+                    tempTool.draw(shape, g);
+                } else if (shape.get(0) instanceof PolygonDraw) {
+                    Draw tempTool = new PolygonDraw();
+                    tempTool.draw(shape, g);
+                }
             }
         }
     }
 
     public void addPlot(Point plot, Color colour) {
         ArrayList tempList = new ArrayList();
+        Draw tempTool = new PlotDraw();
+        tempList.add(tempTool);
         tempList.add(plot);
         tempList.add(colour);
-        listOfPlots.add(tempList);
+        listOfShapes.add(tempList);
         repaint();
     }
     public void addLine(Point s, Point e, Color colour) {
         ArrayList tempList = new ArrayList();
+        Draw tempTool = new LineDraw();
+        tempList.add(tempTool);
         tempList.add(s);
         tempList.add(e);
         tempList.add(colour);
-        listOfLines.add(tempList);
-        System.out.println(tempList);
+        listOfShapes.add(tempList);
         repaint();
     }
     public void addRectangle(Point s, Point e, Color colour, Color fill) {
         ArrayList tempList = new ArrayList();
+        Draw tempTool = new RectangleDraw();
+        tempList.add(tempTool);
         tempList.add(s);
         tempList.add(e);
         tempList.add(colour);
         tempList.add(fill);
-        listOfRectangles.add(tempList);
+        listOfShapes.add(tempList);
         repaint();
     }
     public void addEllipse(Point s, Point e, Color colour, Color fill) {
         ArrayList tempList = new ArrayList();
+        Draw tempTool = new EllipseDraw();
+        tempList.add(tempTool);
         tempList.add(s);
         tempList.add(e);
         tempList.add(colour);
         tempList.add(fill);
-        listOfEllipses.add(tempList);
+        listOfShapes.add(tempList);
         repaint();
     }
     public void addPolygon(ArrayList<Point> l, Color colour, Color fill) {
         ArrayList tempList = new ArrayList();
+        Draw tempTool = new PolygonDraw();
+        tempList.add(tempTool);
         for (Point p: l) {
             tempList.add(p);
         }
         tempList.add(colour);
         tempList.add(fill);
-        listOfPolygons.add(tempList);
+        listOfShapes.add(tempList);
         repaint();
         list.clear();
     }

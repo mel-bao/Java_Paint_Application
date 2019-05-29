@@ -15,6 +15,7 @@ public class LineDraw extends Draw {
             return;
         }
 
+        Draw tempTool = (Draw)it.next();
         startPoint = (Point)it.next();
         endPoint = (Point)it.next();
         colour = (Color)it.next();

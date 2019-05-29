@@ -14,6 +14,7 @@ public class PlotDraw extends Draw{
             return;
         }
 
+        Draw tempTool = (Draw)it.next();
         startPoint = (Point) it.next();
         colour = (Color)it.next();
 
