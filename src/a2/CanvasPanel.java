@@ -44,8 +44,20 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         this.colour = colour;
     }
 
+    public Color getColour() {
+        return colour;
+    }
+
     public void setFillColour(Color colour) {
         this.fill = colour;
+    }
+
+    public Color getFillColour() {
+        return fill;
+    }
+
+    public void setListOfShapes(ArrayList<ArrayList> list) {
+        this.listOfShapes = list;
     }
 
     public ArrayList<ArrayList> getListOfShapes() {
@@ -84,6 +96,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         tempList.add(tempTool);
         tempList.add(plot);
         tempList.add(colour);
+        System.out.println(tempList);
         listOfShapes.add(tempList);
         repaint();
     }
