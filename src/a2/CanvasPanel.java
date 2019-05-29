@@ -83,6 +83,20 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
                 Point e = translateToDrawableFormat((double) list.get(3), (double) list.get(4));
                 tempList.add(e);
                 tempList.add(list.get(5));
+            } else if (list.get(0) instanceof RectangleDraw) {
+                Point s = translateToDrawableFormat((double) list.get(1), (double) list.get(2));
+                tempList.add(s);
+                Point e = translateToDrawableFormat((double) list.get(3), (double) list.get(4));
+                tempList.add(e);
+                tempList.add(list.get(5));
+                tempList.add(list.get(6));
+            } else if (list.get(0) instanceof EllipseDraw) {
+                Point s = translateToDrawableFormat((double) list.get(1), (double) list.get(2));
+                tempList.add(s);
+                Point e = translateToDrawableFormat((double) list.get(3), (double) list.get(4));
+                tempList.add(e);
+                tempList.add(list.get(5));
+                tempList.add(list.get(6));
             }
             listOfDrawableShapes.add(tempList);
         }
@@ -167,8 +181,16 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         ArrayList tempList = new ArrayList();
         Draw tempTool = new RectangleDraw();
         tempList.add(tempTool);
-        tempList.add(s);
-        tempList.add(e);
+        //tempList.add(s);
+        double sxcoord = translateXToVecFormat(s);
+        double sycoord = translateYToVecFormat(s);
+        tempList.add(sxcoord);
+        tempList.add(sycoord);
+        //tempList.add(e);
+        double excoord = translateXToVecFormat(e);
+        double eycoord = translateYToVecFormat(e);
+        tempList.add(excoord);
+        tempList.add(eycoord);
         tempList.add(colour);
         tempList.add(fill);
         listOfShapes.add(tempList);
@@ -178,8 +200,16 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         ArrayList tempList = new ArrayList();
         Draw tempTool = new EllipseDraw();
         tempList.add(tempTool);
-        tempList.add(s);
-        tempList.add(e);
+        //tempList.add(s);
+        double sxcoord = translateXToVecFormat(s);
+        double sycoord = translateYToVecFormat(s);
+        tempList.add(sxcoord);
+        tempList.add(sycoord);
+        //tempList.add(e);
+        double excoord = translateXToVecFormat(e);
+        double eycoord = translateYToVecFormat(e);
+        tempList.add(excoord);
+        tempList.add(eycoord);
         tempList.add(colour);
         tempList.add(fill);
         listOfShapes.add(tempList);
