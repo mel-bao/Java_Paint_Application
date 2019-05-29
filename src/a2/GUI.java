@@ -1,12 +1,12 @@
 package a2;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
-
+import java.io.File;
 
 
 public class GUI extends JFrame {
@@ -23,7 +23,6 @@ public class GUI extends JFrame {
         //JFrame.setDefaultLookAndFeelDecorated(true);
 
         //Create and set up the window.
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainPanel = new JPanel(new BorderLayout());
 
@@ -136,6 +135,24 @@ public class GUI extends JFrame {
                 if (c != null) {
                     canvas.setFillColour(c);
                 }
+            }
+        }
+    }
+
+    private class MenuActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getActionCommand() == "Load") {
+                System.out.println("load selected");
+                // create an object of JFileChooser class
+                JFileChooser chooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
+                if (chooser.showOpenDialog(mainPanel) == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = chooser.getSelectedFile();
+                    System.out.println("load file " + selectedFile.getAbsolutePath());
+                } else {
+                    System.out.println("the user cancelled the operation");
+                }
+
             }
         }
     }
