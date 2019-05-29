@@ -13,7 +13,7 @@ public class GUI extends JFrame {
 
     private CanvasPanel canvas;
     private JPanel mainPanel;
-    private FileManagement file = new FileManagement();
+    private FileManager file = new FileManager();
 
     /**
      * Create the GUI and show it. For thread safety, this method should be
