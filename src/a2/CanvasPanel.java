@@ -97,6 +97,15 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
                 tempList.add(e);
                 tempList.add(list.get(5));
                 tempList.add(list.get(6));
+            } else if (list.get(0) instanceof PolygonDraw) {
+                for (int i=1; i < (list.size()-2); i++) {
+                    if (i % 2 != 0) {
+                        Point p = translateToDrawableFormat((double) list.get(i), (double) list.get(i+1));
+                        tempList.add(p);
+                    }
+                }
+                tempList.add(list.get(list.size()-2));
+                tempList.add(list.get(list.size()-1));
             }
             listOfDrawableShapes.add(tempList);
         }
@@ -220,7 +229,11 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         Draw tempTool = new PolygonDraw();
         tempList.add(tempTool);
         for (Point p: l) {
-            tempList.add(p);
+            //tempList.add(p);
+            double xcoord = translateXToVecFormat(p);
+            double ycoord = translateYToVecFormat(p);
+            tempList.add(xcoord);
+            tempList.add(ycoord);
         }
         tempList.add(colour);
         tempList.add(fill);
