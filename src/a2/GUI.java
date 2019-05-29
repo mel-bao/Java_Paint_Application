@@ -1,12 +1,14 @@
 package a2;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileWriter;
 
 
 public class GUI extends JFrame {
@@ -145,14 +147,31 @@ public class GUI extends JFrame {
                 System.out.println("load selected");
                 // create an object of JFileChooser class
                 JFileChooser chooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-
+                chooser.setDialogTitle("Select a file to Load");
+                chooser.setAcceptAllFileFilterUsed(false);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("VEC files", "vec");
+                chooser.addChoosableFileFilter(filter);
                 if (chooser.showOpenDialog(mainPanel) == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = chooser.getSelectedFile();
                     System.out.println("load file " + selectedFile.getAbsolutePath());
                 } else {
                     System.out.println("the user cancelled the operation");
                 }
-
+            } else if (e.getActionCommand() == "Save") {
+                System.out.println("save selected");
+                // create an object of JFileChooser class
+                JFileChooser chooser = new JFileChooser();
+                chooser.setCurrentDirectory(new File("/home/me/Desktop"));
+                chooser.setDialogTitle("Save File");
+                if (chooser.showSaveDialog(mainPanel) == JFileChooser.APPROVE_OPTION) {
+                    try(FileWriter writer = new FileWriter(chooser.getSelectedFile()+".vec")) {
+                        writer.write("testing testing");
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    System.out.println("the user cancelled the operation");
+                }
             }
         }
     }
