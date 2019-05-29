@@ -65,6 +65,11 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         return listOfShapes;
     }
 
+    public void clearListOfShapes() {
+        listOfShapes.clear();
+        repaint();
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

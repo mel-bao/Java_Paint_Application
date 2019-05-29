@@ -174,6 +174,8 @@ public class GUI extends JFrame {
                 } else {
                     System.out.println("the user cancelled the operation");
                 }
+            } else if (e.getActionCommand() == "New") {
+                canvas.clearListOfShapes();
             }
         }
     }
