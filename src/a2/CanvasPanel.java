@@ -2,12 +2,10 @@ package a2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
-public class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener {
+public class CanvasPanel extends JPanel implements MouseListener, MouseMotionListener, ComponentListener {
     private Draw tool;
     private Color colour;
     private Color fill;
@@ -15,6 +13,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     private Point endPoint = null;
     private ArrayList<Point> list = new ArrayList<Point>();
     private ArrayList<ArrayList> listOfShapes = new ArrayList<ArrayList>();
+    private ArrayList<ArrayList> listOfDrawableShapes = new ArrayList<ArrayList>();
 
 
     @Override
@@ -68,8 +67,11 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (!listOfShapes.isEmpty()) {
-            for (ArrayList shape: listOfShapes) {
+        //translate list of shapes with vec co-ords and set as listOfDrawableShapes
+        listOfDrawableShapes = listOfShapes;
+
+        if (!listOfDrawableShapes.isEmpty()) {
+            for (ArrayList shape: listOfDrawableShapes) {
                 if (shape.get(0) instanceof PlotDraw) {
                     Draw tempTool = new PlotDraw();
                     tempTool.draw(shape, g);
@@ -90,7 +92,19 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
+    //(0,0) on panel is equivalent to (0,0) Vec co-ordinate
+
+
+    private void translateToVecFormat() {
+
+    }
+
+    private void translatetoDrawableFormat() {
+
+    }
+
     public void addPlot(Point plot, Color colour) {
+        System.out.println(plot);
         ArrayList tempList = new ArrayList();
         Draw tempTool = new PlotDraw();
         tempList.add(tempTool);
@@ -193,4 +207,12 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     }
     public void mouseMoved(MouseEvent e) {}
     public void mouseDragged(MouseEvent e) {}
+
+    public void componentResized(ComponentEvent e) {
+        System.out.println("canvas resized");
+    }
+
+    public void componentMoved(ComponentEvent e) {}
+    public void componentShown(ComponentEvent e) {}
+    public void componentHidden(ComponentEvent e) {}
 }

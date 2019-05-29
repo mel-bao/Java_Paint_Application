@@ -4,9 +4,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileWriter;
 
@@ -61,6 +59,10 @@ public class GUI extends JFrame {
         canvas = new CanvasPanel();
         //add mouse listener so canvas can handle mouse events
         canvas.addMouseListener(canvas);
+        //add mouse motion listener for continuous drawing
+        canvas.addMouseMotionListener(canvas);
+        //add component listener for resizing
+        canvas.addComponentListener(canvas);
         canvas.setBackground(Color.WHITE);
         squarePanel.add(canvas);
 
