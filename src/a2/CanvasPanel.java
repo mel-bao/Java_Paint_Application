@@ -35,50 +35,6 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         return new Dimension(s, s);
     }
 
-    public void setTool(Draw tool) {
-        this.tool = tool;
-    }
-
-    public Draw getTool() {
-        return tool;
-    }
-
-    public void setColour(Color colour) {
-        this.colour = colour;
-    }
-
-    public Color getColour() {
-        return colour;
-    }
-
-    public void setFillColour(Color colour) {
-        this.fill = colour;
-    }
-
-    public Color getFillColour() {
-        return fill;
-    }
-
-    public void setListOfShapes(ArrayList<ArrayList> list) {
-        this.listOfShapes = list;
-    }
-
-    public ArrayList<ArrayList> getListOfShapes() {
-        return listOfShapes;
-    }
-
-    public void clearListOfShapes() {
-        listOfShapes.clear();
-        repaint();
-    }
-
-    public void undoLastCommand() {
-        if (!listOfShapes.isEmpty()) {
-            listOfShapes.remove(listOfShapes.size() - 1);
-            repaint();
-        }
-    }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -155,6 +111,50 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
                     tempTool.draw(shape, g);
                 }
             }
+        }
+    }
+
+    public void setTool(Draw tool) {
+        this.tool = tool;
+    }
+
+    public Draw getTool() {
+        return tool;
+    }
+
+    public void setColour(Color colour) {
+        this.colour = colour;
+    }
+
+    public Color getColour() {
+        return colour;
+    }
+
+    public void setFillColour(Color colour) {
+        this.fill = colour;
+    }
+
+    public Color getFillColour() {
+        return fill;
+    }
+
+    public void setListOfShapes(ArrayList<ArrayList> list) {
+        this.listOfShapes = list;
+    }
+
+    public ArrayList<ArrayList> getListOfShapes() {
+        return listOfShapes;
+    }
+
+    public void clearListOfShapes() {
+        listOfShapes.clear();
+        repaint();
+    }
+
+    public void undoLastCommand() {
+        if (!listOfShapes.isEmpty()) {
+            listOfShapes.remove(listOfShapes.size() - 1);
+            repaint();
         }
     }
 

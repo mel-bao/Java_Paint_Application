@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 
 public class GUI extends JFrame {
@@ -168,7 +169,10 @@ public class GUI extends JFrame {
                 chooser.setDialogTitle("Save File");
                 if (chooser.showSaveDialog(mainPanel) == JFileChooser.APPROVE_OPTION) {
                     try(FileWriter writer = new FileWriter(chooser.getSelectedFile()+".vec")) {
-                        writer.write("testing testing");
+                        //get listOfShapes as string
+                        ArrayList<ArrayList> listOfShapes = canvas.getListOfShapes();
+                        String fileString = file.SaveFile(listOfShapes);
+                        writer.write(fileString);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
