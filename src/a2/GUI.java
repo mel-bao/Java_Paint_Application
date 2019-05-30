@@ -156,8 +156,10 @@ public class GUI extends JFrame {
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("VEC files", "vec");
                 chooser.addChoosableFileFilter(filter);
                 if (chooser.showOpenDialog(mainPanel) == JFileChooser.APPROVE_OPTION) {
+                    //get loaded file into listOfShapes format
                     File selectedFile = chooser.getSelectedFile();
-                    System.out.println("load file " + selectedFile.getAbsolutePath());
+                    ArrayList<ArrayList> listOfShapes = file.loadFile(selectedFile);
+                    canvas.setListOfShapes(listOfShapes);
                 } else {
                     System.out.println("the user cancelled the operation");
                 }
@@ -169,9 +171,9 @@ public class GUI extends JFrame {
                 chooser.setDialogTitle("Save File");
                 if (chooser.showSaveDialog(mainPanel) == JFileChooser.APPROVE_OPTION) {
                     try(FileWriter writer = new FileWriter(chooser.getSelectedFile()+".vec")) {
-                        //get listOfShapes as string
+                        //get listOfShapes as string/VEC file
                         ArrayList<ArrayList> listOfShapes = canvas.getListOfShapes();
-                        String fileString = file.SaveFile(listOfShapes);
+                        String fileString = file.saveFile(listOfShapes);
                         writer.write(fileString);
                     } catch (Exception ex) {
                         ex.printStackTrace();

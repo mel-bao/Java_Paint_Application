@@ -1,11 +1,15 @@
 package a2;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class FileManager {
 
-    public String SaveFile(ArrayList<ArrayList> listOfShapes) {
+    public String saveFile(ArrayList<ArrayList> listOfShapes) {
         String string = "";
         String pen = "";
         String fill = "";
@@ -117,6 +121,24 @@ public class FileManager {
         }
 
         return string;
+    }
+
+    public ArrayList<ArrayList> loadFile(File file) {
+        ArrayList<ArrayList> list = null;
+
+        try {
+            Scanner myReader = new Scanner(file);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
 }
