@@ -22,7 +22,6 @@ public class GUI extends JFrame {
      */
     public GUI() {
         super("CAB302 Assignment 2");
-        //JFrame.setDefaultLookAndFeelDecorated(true);
 
         //Create and set up the window.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -132,14 +131,15 @@ public class GUI extends JFrame {
                 PolygonDraw poly = new PolygonDraw();
                 canvas.setTool(poly);
             } else if (e.getActionCommand() == "PEN") {
-                Color c = JColorChooser.showDialog(null, "Choose a Color", mainPanel.getForeground());
-                if (c != null) {
-                    canvas.setColour(c);
-                }
+                Color c = JColorChooser.showDialog(null, "Choose a Pen Colour", Color.black);
+                canvas.setColour(c);
             } else if (e.getActionCommand() == "FILL") {
-                Color c = JColorChooser.showDialog(null, "Choose a Color", mainPanel.getForeground());
-                if (c != null) {
+                Color initc = new Color(0, 0, 0, 0);
+                Color c = JColorChooser.showDialog(null, "Choose a Fill Colour", initc);
+                if (c != initc) {
                     canvas.setFillColour(c);
+                } else {
+                    canvas.setFillColour(null);
                 }
             }
         }
