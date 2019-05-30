@@ -182,7 +182,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         return p;
     }
 
-    public void addPlot(Point plot, Color colour) {
+    private void addPlot(Point plot, Color colour) {
         ArrayList tempList = new ArrayList();
         tempList.add(tool);
         double xcoord = translateXToVecFormat(plot);
@@ -193,7 +193,8 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         listOfShapes.add(tempList);
         repaint();
     }
-    public void addLine(Point s, Point e, Color colour) {
+
+    private void addLine(Point s, Point e, Color colour) {
         ArrayList tempList = new ArrayList();
         tempList.add(tool);
         double sxcoord = translateXToVecFormat(s);
@@ -208,23 +209,8 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         listOfShapes.add(tempList);
         repaint();
     }
-    public void addRectangle(Point s, Point e, Color colour, Color fill) {
-        ArrayList tempList = new ArrayList();
-        tempList.add(tool);
-        double sxcoord = translateXToVecFormat(s);
-        double sycoord = translateYToVecFormat(s);
-        tempList.add(sxcoord);
-        tempList.add(sycoord);
-        double excoord = translateXToVecFormat(e);
-        double eycoord = translateYToVecFormat(e);
-        tempList.add(excoord);
-        tempList.add(eycoord);
-        tempList.add(colour);
-        tempList.add(fill);
-        listOfShapes.add(tempList);
-        repaint();
-    }
-    public void addEllipse(Point s, Point e, Color colour, Color fill) {
+
+    private void addRectangle(Point s, Point e, Color colour, Color fill) {
         ArrayList tempList = new ArrayList();
         tempList.add(tool);
         double sxcoord = translateXToVecFormat(s);
@@ -240,7 +226,25 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         listOfShapes.add(tempList);
         repaint();
     }
-    public void addPolygon(ArrayList<Point> l, Color colour, Color fill) {
+
+    private void addEllipse(Point s, Point e, Color colour, Color fill) {
+        ArrayList tempList = new ArrayList();
+        tempList.add(tool);
+        double sxcoord = translateXToVecFormat(s);
+        double sycoord = translateYToVecFormat(s);
+        tempList.add(sxcoord);
+        tempList.add(sycoord);
+        double excoord = translateXToVecFormat(e);
+        double eycoord = translateYToVecFormat(e);
+        tempList.add(excoord);
+        tempList.add(eycoord);
+        tempList.add(colour);
+        tempList.add(fill);
+        listOfShapes.add(tempList);
+        repaint();
+    }
+
+    private void addPolygon(ArrayList<Point> l, Color colour, Color fill) {
         ArrayList tempList = new ArrayList();
         tempList.add(tool);
         for (Point p: l) {
@@ -272,12 +276,16 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
             }
         }
     }
+
     public void mouseEntered(MouseEvent e){}
+
     public void mouseExited(MouseEvent e){}
+
     public void mousePressed(MouseEvent e){
         startPoint = e.getPoint();
         pointStart = e.getPoint();
     }
+
     public void mouseReleased(MouseEvent e) {
         endPoint = e.getPoint();
         pointStart = null;
@@ -303,9 +311,11 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
             addEllipse(startPoint, endPoint, colour, fill);
         }
     }
+
     public void mouseMoved(MouseEvent e) {
         pointEnd = e.getPoint();
     }
+
     public void mouseDragged(MouseEvent e) {
         pointEnd = e.getPoint();
         repaint();
@@ -319,6 +329,8 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     }
 
     public void componentMoved(ComponentEvent e) {}
+
     public void componentShown(ComponentEvent e) {}
+    
     public void componentHidden(ComponentEvent e) {}
 }
