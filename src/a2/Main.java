@@ -1,5 +1,7 @@
 package a2;
 
+import javax.swing.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -7,6 +9,7 @@ public class Main {
         //creating and showing this application's a2.GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run () {
+                JFrame.setDefaultLookAndFeelDecorated(true);
                 GUI gui = new GUI();
             }
         });

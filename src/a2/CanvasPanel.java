@@ -331,6 +331,6 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     public void componentMoved(ComponentEvent e) {}
 
     public void componentShown(ComponentEvent e) {}
-    
+
     public void componentHidden(ComponentEvent e) {}
 }
