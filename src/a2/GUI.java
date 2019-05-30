@@ -15,6 +15,7 @@ public class GUI extends JFrame {
     private CanvasPanel canvas;
     private JPanel mainPanel;
     private FileManager file = new FileManager();
+    private JLabel toolLabel;
 
     /**
      * Create the GUI and show it. For thread safety, this method should be
@@ -27,7 +28,20 @@ public class GUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainPanel = new JPanel(new BorderLayout());
 
+        createMenu();
+        setupCanvas();
+        createToolPanel();
 
+        add(mainPanel);
+
+        //Display the window.
+        setPreferredSize(new Dimension(1000, 500));
+        setLocation(new Point(200, 200));
+        pack();
+        setVisible(true);
+    }
+
+    private void createMenu() {
         //Create the menu bar
         JMenuBar mainMenuBar = new JMenuBar();
         mainMenuBar.setOpaque(true);
@@ -45,7 +59,8 @@ public class GUI extends JFrame {
         menuFile.add(menuSave);
         menuFile.add(menuLoad);
         menuEdit.add(menuUndo);
-        //
+
+        //add keyevent for undo menu item
         KeyStroke keyStrokeToUndo = KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK);
         menuUndo.setAccelerator(keyStrokeToUndo);
         //add action listeners for menuItems
@@ -54,6 +69,11 @@ public class GUI extends JFrame {
         menuLoad.addActionListener(new MenuActionListener());
         menuUndo.addActionListener(new MenuActionListener());
 
+        //Add menuBar
+        setJMenuBar(mainMenuBar);
+    }
+
+    private void setupCanvas() {
         //create canvas panel
         JPanel squarePanel = new JPanel(new GridBagLayout());
         squarePanel.setBackground(Color.LIGHT_GRAY);
@@ -64,16 +84,18 @@ public class GUI extends JFrame {
         canvas.addMouseMotionListener(canvas);
         //add component listener for resizing
         canvas.addComponentListener(canvas);
+
         canvas.setBackground(Color.WHITE);
         squarePanel.add(canvas);
+        mainPanel.add(squarePanel);
+    }
 
-
+    private void createToolPanel() {
         //create tool panel
-        JPanel toolPanel = new JPanel(new GridLayout(9, 1));
+        JPanel toolPanel = new JPanel(new GridLayout(10, 1));
         toolPanel.setBackground(Color.GRAY);
 
         //add graphical tool buttons to toolpanel
-
         JButton plotButton = new JButton("PLOT");
         toolPanel.add(plotButton);
         JButton lineButton = new JButton("LINE");
@@ -97,94 +119,105 @@ public class GUI extends JFrame {
         penColourButton.addActionListener(new ToolButtonListener());
         fillButton.addActionListener(new ToolButtonListener());
 
-        //Add menuBar
-        setJMenuBar(mainMenuBar);
-        //add toolPanel on left, canvas
-        mainPanel.add(toolPanel, BorderLayout.WEST);
-        mainPanel.add(squarePanel);
-        add(mainPanel);
+        //create toolPanel label
+        toolLabel = new JLabel();
+        toolPanel.add(toolLabel);
 
-        //Display the window.
-        setPreferredSize(new Dimension(1000, 500));
-        setLocation(new Point(200, 200));
-        pack();
-        setVisible(true);
+        //add toolPanel on left
+        mainPanel.add(toolPanel, BorderLayout.WEST);
     }
 
     private class ToolButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Selected: " + e.getActionCommand());
-            if (e.getActionCommand() == "PLOT") {
-                PlotDraw plot = new PlotDraw();
-                canvas.setTool(plot);
-            } else if (e.getActionCommand() == "RECTANGLE") {
-                RectangleDraw rect = new RectangleDraw();
-                canvas.setTool(rect);
-            } else if (e.getActionCommand() == "LINE") {
-                LineDraw line = new LineDraw();
-                canvas.setTool(line);
-            } else if (e.getActionCommand() == "ELLIPSE") {
-                EllipseDraw elli = new EllipseDraw();
-                canvas.setTool(elli);
-            } else if (e.getActionCommand() == "POLYGON") {
-                PolygonDraw poly = new PolygonDraw();
-                canvas.setTool(poly);
-            } else if (e.getActionCommand() == "PEN") {
-                Color c = JColorChooser.showDialog(null, "Choose a Pen Colour", Color.black);
-                canvas.setColour(c);
-            } else if (e.getActionCommand() == "FILL") {
-                Color initc = new Color(0, 0, 0, 0);
-                Color c = JColorChooser.showDialog(null, "Choose a Fill Colour", initc);
-                if (c != initc) {
-                    canvas.setFillColour(c);
-                } else {
-                    canvas.setFillColour(null);
-                }
+            String cmd = e.getActionCommand();
+            System.out.println("Selected: " + cmd);
+            switch (cmd) {
+                case "PLOT":
+                    PlotDraw plot = new PlotDraw();
+                    canvas.setTool(plot);
+                    break;
+                case "LINE":
+                    LineDraw line = new LineDraw();
+                    canvas.setTool(line);
+                    break;
+                case "RECTANGLE":
+                    RectangleDraw rect = new RectangleDraw();
+                    canvas.setTool(rect);
+                    break;
+                case "ELLIPSE":
+                    EllipseDraw elli = new EllipseDraw();
+                    canvas.setTool(elli);
+                    break;
+                case "POLYGON":
+                    toolLabel.setText("right click to end");
+                    PolygonDraw poly = new PolygonDraw();
+                    canvas.setTool(poly);
+                    break;
+                case "PEN":
+                    Color c = JColorChooser.showDialog(null, "Choose a Pen Colour", Color.black);
+                    canvas.setColour(c);
+                    break;
+                case "FILL":
+                    toolLabel.setText("reset to turn off");
+                    Color initf = new Color(0, 0, 0, 0);
+                    Color f = JColorChooser.showDialog(null, "Choose a Fill Colour", initf);
+                    if (f != initf) {
+                        canvas.setFillColour(f);
+                    } else {
+                        canvas.setFillColour(null);
+                    }
+                    break;
             }
         }
     }
 
     private class MenuActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand() == "Load") {
-                System.out.println("load selected");
-                // create an object of JFileChooser class
-                JFileChooser chooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-                chooser.setDialogTitle("Select a file to Load");
-                chooser.setAcceptAllFileFilterUsed(false);
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("VEC files", "vec");
-                chooser.addChoosableFileFilter(filter);
-                if (chooser.showOpenDialog(mainPanel) == JFileChooser.APPROVE_OPTION) {
-                    //get loaded file into listOfShapes format
-                    File selectedFile = chooser.getSelectedFile();
-                    ArrayList<ArrayList> listOfShapes = file.loadFile(selectedFile);
-                    canvas.setListOfShapes(listOfShapes);
-                } else {
-                    System.out.println("the user cancelled the operation");
-                }
-            } else if (e.getActionCommand() == "Save") {
-                System.out.println("save selected");
-                // create an object of JFileChooser class
-                JFileChooser chooser = new JFileChooser();
-                chooser.setCurrentDirectory(new File("/home/me/Desktop"));
-                chooser.setDialogTitle("Save File");
-                if (chooser.showSaveDialog(mainPanel) == JFileChooser.APPROVE_OPTION) {
-                    try(FileWriter writer = new FileWriter(chooser.getSelectedFile()+".vec")) {
-                        //get listOfShapes as string/VEC file
-                        ArrayList<ArrayList> listOfShapes = canvas.getListOfShapes();
-                        String fileString = file.saveFile(listOfShapes);
-                        writer.write(fileString);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+            String cmd = e.getActionCommand();
+            switch (cmd) {
+                case "Load":
+                    System.out.println("load selected");
+                    // create an object of JFileChooser class
+                    JFileChooser lchooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+                    lchooser.setDialogTitle("Select a file to Load");
+                    lchooser.setAcceptAllFileFilterUsed(false);
+                    FileNameExtensionFilter filter = new FileNameExtensionFilter("VEC files", "vec");
+                    lchooser.addChoosableFileFilter(filter);
+                    if (lchooser.showOpenDialog(mainPanel) == JFileChooser.APPROVE_OPTION) {
+                        //get loaded file into listOfShapes format
+                        File selectedFile = lchooser.getSelectedFile();
+                        ArrayList<ArrayList> listOfShapes = file.loadFile(selectedFile);
+                        canvas.setListOfShapes(listOfShapes);
+                    } else {
+                        System.out.println("the user cancelled the operation");
                     }
-                } else {
-                    System.out.println("the user cancelled the operation");
-                }
-            } else if (e.getActionCommand() == "New") {
-                canvas.clearListOfShapes();
-            } else if (e.getActionCommand() == "Undo") {
-                canvas.undoLastCommand();
+                    break;
+                case "Save":
+                    System.out.println("save selected");
+                    // create an object of JFileChooser class
+                    JFileChooser schooser = new JFileChooser();
+                    schooser.setCurrentDirectory(new File("/home/me/Desktop"));
+                    schooser.setDialogTitle("Save File");
+                    if (schooser.showSaveDialog(mainPanel) == JFileChooser.APPROVE_OPTION) {
+                        try(FileWriter writer = new FileWriter(schooser.getSelectedFile()+".vec")) {
+                            //get listOfShapes as string/VEC file
+                            ArrayList<ArrayList> listOfShapes = canvas.getListOfShapes();
+                            String fileString = file.saveFile(listOfShapes);
+                            writer.write(fileString);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("the user cancelled the operation");
+                    }
+                    break;
+                case "New":
+                    canvas.clearListOfShapes();
+                    break;
+                case "Undo":
+                    canvas.undoLastCommand();
+                    break;
             }
         }
     }
