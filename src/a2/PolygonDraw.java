@@ -45,7 +45,7 @@ public class PolygonDraw extends Draw{
         if (colour != null) {
             g.setColor(colour);
         } else {
-            g.setColor(colour.black);
+            g.setColor(Color.black);
         }
         g.drawPolygon(p);
     }
