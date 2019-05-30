@@ -128,6 +128,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
             }
             listOfDrawableShapes.add(tempList);
         }
+        System.out.println(listOfShapes);
 
         if (!listOfDrawableShapes.isEmpty()) {
             for (ArrayList shape: listOfDrawableShapes) {
@@ -176,8 +177,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
 
     public void addPlot(Point plot, Color colour) {
         ArrayList tempList = new ArrayList();
-        Draw tempTool = new PlotDraw();
-        tempList.add(tempTool);
+        tempList.add(tool);
         double xcoord = translateXToVecFormat(plot);
         double ycoord = translateYToVecFormat(plot);
         tempList.add(xcoord);
@@ -188,8 +188,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     }
     public void addLine(Point s, Point e, Color colour) {
         ArrayList tempList = new ArrayList();
-        Draw tempTool = new LineDraw();
-        tempList.add(tempTool);
+        tempList.add(tool);
         double sxcoord = translateXToVecFormat(s);
         double sycoord = translateYToVecFormat(s);
         tempList.add(sxcoord);
@@ -204,8 +203,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     }
     public void addRectangle(Point s, Point e, Color colour, Color fill) {
         ArrayList tempList = new ArrayList();
-        Draw tempTool = new RectangleDraw();
-        tempList.add(tempTool);
+        tempList.add(tool);
         double sxcoord = translateXToVecFormat(s);
         double sycoord = translateYToVecFormat(s);
         tempList.add(sxcoord);
@@ -221,8 +219,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     }
     public void addEllipse(Point s, Point e, Color colour, Color fill) {
         ArrayList tempList = new ArrayList();
-        Draw tempTool = new EllipseDraw();
-        tempList.add(tempTool);
+        tempList.add(tool);
         double sxcoord = translateXToVecFormat(s);
         double sycoord = translateYToVecFormat(s);
         tempList.add(sxcoord);
@@ -238,8 +235,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
     }
     public void addPolygon(ArrayList<Point> l, Color colour, Color fill) {
         ArrayList tempList = new ArrayList();
-        Draw tempTool = new PolygonDraw();
-        tempList.add(tempTool);
+        tempList.add(tool);
         for (Point p: l) {
             double xcoord = translateXToVecFormat(p);
             double ycoord = translateYToVecFormat(p);
