@@ -8,10 +8,10 @@ public class FileManager {
     public String SaveFile(ArrayList<ArrayList> listOfShapes) {
         String string = "";
         String pen = "";
+        String fill = "";
 
         for (ArrayList draw: listOfShapes) {
             String shape;
-            String fill = null;
             String coord = "";
 
             if (draw.get(0) instanceof PlotDraw) {
@@ -50,6 +50,15 @@ public class FileManager {
                         string += "PEN " + pen + "\n";
                     }
                 }
+                //check for fill colour
+                if (draw.get(draw.size()-1) != null) {
+                    Color color = (Color)draw.get(draw.size()-1);
+                    String hex = String.format("#%06x", color.getRGB() & 0x00FFFFFF);
+                    if (!hex.equals(fill)) {
+                        fill = hex;
+                        string += "FILL " + fill + "\n";
+                    }
+                }
                 shape = "RECTANGLE ";
                 coord = draw.get(1) + " " + draw.get(2) + " " + draw.get(3)+ " " + draw.get(4);
                 string += shape + coord + "\n";
@@ -63,6 +72,15 @@ public class FileManager {
                         string += "PEN " + pen + "\n";
                     }
                 }
+                //check for fill colour
+                if (draw.get(draw.size()-1) != null) {
+                    Color color = (Color)draw.get(draw.size()-1);
+                    String hex = String.format("#%06x", color.getRGB() & 0x00FFFFFF);
+                    if (!hex.equals(fill)) {
+                        fill = hex;
+                        string += "FILL " + fill + "\n";
+                    }
+                }
                 shape = "ELLIPSE ";
                 coord = draw.get(1) + " " + draw.get(2) + " " + draw.get(3)+ " " + draw.get(4);
                 string += shape + coord + "\n";
@@ -74,6 +92,15 @@ public class FileManager {
                     if (!hex.equals(pen)) {
                         pen = hex;
                         string += "PEN " + pen + "\n";
+                    }
+                }
+                //check for fill colour
+                if (draw.get(draw.size()-1) != null) {
+                    Color color = (Color)draw.get(draw.size()-1);
+                    String hex = String.format("#%06x", color.getRGB() & 0x00FFFFFF);
+                    if (!hex.equals(fill)) {
+                        fill = hex;
+                        string += "FILL " + fill + "\n";
                     }
                 }
                 shape = "POLYGON ";
