@@ -177,6 +177,8 @@ public class GUI extends JFrame {
                 }
             } else if (e.getActionCommand() == "New") {
                 canvas.clearListOfShapes();
+            } else if (e.getActionCommand() == "Undo") {
+                canvas.undoLastCommand();
             }
         }
     }

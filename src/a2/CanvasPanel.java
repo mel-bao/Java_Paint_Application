@@ -72,6 +72,13 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
         repaint();
     }
 
+    public void undoLastCommand() {
+        if (!listOfShapes.isEmpty()) {
+            listOfShapes.remove(listOfShapes.size() - 1);
+            repaint();
+        }
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -128,7 +135,6 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
             }
             listOfDrawableShapes.add(tempList);
         }
-        System.out.println(listOfShapes);
 
         if (!listOfDrawableShapes.isEmpty()) {
             for (ArrayList shape: listOfDrawableShapes) {
