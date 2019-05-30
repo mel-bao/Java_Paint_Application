@@ -147,9 +147,13 @@ public class FileManager {
             //split each line into separate strings by space
             String[] split = string.split("\\s+");
             if (split[0].equals("PEN")) {
-
+                c = Color.decode(split[1]);
             } else if (split[0].equals("FILL")) {
-
+                if (split[1].equals("OFF")) {
+                    f = null;
+                } else {
+                    f = Color.decode(split[1]);
+                }
             } else if (split[0].equals("PLOT")) {
                 Draw tempTool = new PlotDraw();
                 tempList.add(tempTool);
@@ -158,7 +162,6 @@ public class FileManager {
                     tempList.add(coord);
                 }
                 tempList.add(c);
-                tempList.add(f);
                 list.add(tempList);
             } else if (split[0].equals("LINE")) {
                 Draw tempTool = new LineDraw();
@@ -168,7 +171,6 @@ public class FileManager {
                     tempList.add(coord);
                 }
                 tempList.add(c);
-                tempList.add(f);
                 list.add(tempList);
             } else if (split[0].equals("RECTANGLE")) {
                 Draw tempTool = new RectangleDraw();
@@ -202,7 +204,6 @@ public class FileManager {
                 list.add(tempList);
             }
         }
-
         return list;
     }
 
