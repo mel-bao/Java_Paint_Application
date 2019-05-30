@@ -140,6 +140,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
 
     public void setListOfShapes(ArrayList<ArrayList> list) {
         this.listOfShapes = list;
+        repaint();
     }
 
     public ArrayList<ArrayList> getListOfShapes() {

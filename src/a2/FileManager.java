@@ -124,18 +124,83 @@ public class FileManager {
     }
 
     public ArrayList<ArrayList> loadFile(File file) {
-        ArrayList<ArrayList> list = null;
+        ArrayList<ArrayList> list = new ArrayList<ArrayList>();
+        ArrayList<String> strings = new ArrayList<String>();
+        Color c = null;
+        Color f = null;
 
+        //split file into strings by line
         try {
             Scanner myReader = new Scanner(file);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                System.out.println(data);
+                strings.add(data);
             }
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+        }
+
+        for (String string: strings) {
+            ArrayList tempList = new ArrayList();
+            //split each line into separate strings by space
+            String[] split = string.split("\\s+");
+            if (split[0].equals("PEN")) {
+
+            } else if (split[0].equals("FILL")) {
+
+            } else if (split[0].equals("PLOT")) {
+                Draw tempTool = new PlotDraw();
+                tempList.add(tempTool);
+                for (int i=1; i < split.length; i++) {
+                    double coord = Double.parseDouble(split[i]);
+                    tempList.add(coord);
+                }
+                tempList.add(c);
+                tempList.add(f);
+                list.add(tempList);
+            } else if (split[0].equals("LINE")) {
+                Draw tempTool = new LineDraw();
+                tempList.add(tempTool);
+                for (int i=1; i < split.length; i++) {
+                    double coord = Double.parseDouble(split[i]);
+                    tempList.add(coord);
+                }
+                tempList.add(c);
+                tempList.add(f);
+                list.add(tempList);
+            } else if (split[0].equals("RECTANGLE")) {
+                Draw tempTool = new RectangleDraw();
+                tempList.add(tempTool);
+                for (int i=1; i < split.length; i++) {
+                    double coord = Double.parseDouble(split[i]);
+                    tempList.add(coord);
+                }
+                tempList.add(c);
+                tempList.add(f);
+                list.add(tempList);
+            } else if (split[0].equals("ELLIPSE")) {
+                Draw tempTool = new EllipseDraw();
+                tempList.add(tempTool);
+                for (int i=1; i < split.length; i++) {
+                    double coord = Double.parseDouble(split[i]);
+                    tempList.add(coord);
+                }
+                tempList.add(c);
+                tempList.add(f);
+                list.add(tempList);
+            } else if (split[0].equals("POLYGON")) {
+                Draw tempTool = new PolygonDraw();
+                tempList.add(tempTool);
+                for (int i=1; i < split.length; i++) {
+                    double coord = Double.parseDouble(split[i]);
+                    tempList.add(coord);
+                }
+                tempList.add(c);
+                tempList.add(f);
+                list.add(tempList);
+            }
         }
 
         return list;
