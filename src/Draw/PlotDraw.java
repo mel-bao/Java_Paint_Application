@@ -32,7 +32,7 @@ public class PlotDraw extends Draw {
     public void draw(List list, Graphics g) {
         Iterator it = list.iterator();
         //if the list does not contain the required point, return.
-        if (list.size() < 4) {
+        if (list.size() < 3) {
             return;
         }
 

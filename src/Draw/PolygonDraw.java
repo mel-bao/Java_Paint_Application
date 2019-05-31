@@ -36,7 +36,7 @@ public class PolygonDraw extends Draw {
     public void draw(List list, Graphics g) {
         Iterator it = list.iterator();
         //if the list does not contain the required two points, return.
-        if(list.size()<9)
+        if(list.size()<6)
         {
             return;
         }

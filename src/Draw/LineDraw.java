@@ -36,7 +36,7 @@ public class LineDraw extends Draw {
     public void draw(List list, Graphics g) {
         Iterator it = list.iterator();
         //if the list does not contain the required two points, return.
-        if(list.size() < 6) {
+        if(list.size() < 4) {
             return;
         }
 
