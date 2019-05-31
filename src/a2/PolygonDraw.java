@@ -48,5 +48,6 @@ public class PolygonDraw extends Draw{
             g.setColor(Color.black);
         }
         g.drawPolygon(p);
+        doNothing(PAUSE);
     }
 }

@@ -25,6 +25,7 @@ public class PlotDraw extends Draw{
                 g.setColor(colour);
             }
             g.drawLine((int) startPoint.getX(), (int) startPoint.getY(), (int) startPoint.getX(), (int) startPoint.getY());
+            doNothing(PAUSE);
         }
     }
 }

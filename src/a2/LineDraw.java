@@ -27,7 +27,7 @@ public class LineDraw extends Draw {
                 g.setColor(colour);
             }
             g.drawLine((int)startPoint.getX(), (int)startPoint.getY(), (int)endPoint.getX(), (int)endPoint.getY());
-
+            doNothing(PAUSE);
         }
     }
 }

@@ -35,6 +35,7 @@ public class RectangleDraw extends Draw {
                 g.setColor(Color.black);
             }
             g.drawRect((int)startPoint.getX(), (int)startPoint.getY(), (int)(endPoint.getX()-startPoint.getX()), (int)(endPoint.getY()-startPoint.getY()));
+            doNothing(PAUSE);
         }
     }
 }

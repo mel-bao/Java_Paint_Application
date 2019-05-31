@@ -35,6 +35,7 @@ public class EllipseDraw extends Draw{
                 g.setColor(Color.black);
             }
             g.drawOval((int)startPoint.getX(), (int)startPoint.getY(), (int)(endPoint.getX()-startPoint.getX()), (int)(endPoint.getY()-startPoint.getY()));
+            doNothing(PAUSE);
         }
     }
 }
