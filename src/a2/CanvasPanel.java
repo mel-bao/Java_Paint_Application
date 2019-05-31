@@ -1,5 +1,7 @@
 package a2;
 
+import Draw.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -92,6 +94,7 @@ public class CanvasPanel extends JPanel implements MouseListener, MouseMotionLis
             listOfDrawableShapes.add(tempList);
         }
 
+        //call relevant ShapeDraw method to draw each shape in the list
         if (!listOfDrawableShapes.isEmpty()) {
             for (ArrayList shape: listOfDrawableShapes) {
                 if (shape.get(0) instanceof PlotDraw) {

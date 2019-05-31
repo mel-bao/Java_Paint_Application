@@ -1,4 +1,6 @@
-package a2;
+package Draw;
+
+import Draw.Draw;
 
 import java.awt.*;
 import java.util.Iterator;

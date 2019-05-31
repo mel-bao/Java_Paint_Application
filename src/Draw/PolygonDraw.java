@@ -1,11 +1,12 @@
-package a2;
+package Draw;
+
+import Draw.Draw;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class PolygonDraw extends Draw{
+public class PolygonDraw extends Draw {
     private Color colour = null;
     private Point point = null;
     private Color fill = null;

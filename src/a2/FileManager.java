@@ -1,5 +1,7 @@
 package a2;
 
+import Draw.*;
+
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,9 +1,12 @@
-package a2;
+package Tests;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import Draw.*;
+import a2.CanvasPanel;
 import org.junit.jupiter.api.*;
 
 

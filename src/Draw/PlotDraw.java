@@ -1,10 +1,12 @@
-package a2;
+package Draw;
+
+import Draw.Draw;
 
 import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 
-public class PlotDraw extends Draw{
+public class PlotDraw extends Draw {
     private Point startPoint = null;
     private Color colour = null;
     public void draw(List list, Graphics g) {

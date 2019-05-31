@@ -1,6 +1,9 @@
-package a2;
+package Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import Draw.*;
+import a2.FileManager;
 import org.junit.jupiter.api.*;
 
 import java.awt.*;

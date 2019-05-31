@@ -1,10 +1,12 @@
-package a2;
+package Draw;
+
+import Draw.Draw;
 
 import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 
-public class EllipseDraw extends Draw{
+public class EllipseDraw extends Draw {
     private Point startPoint = null;
     private Point endPoint = null;
     private Color colour = null;
