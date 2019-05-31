@@ -22,7 +22,7 @@ public class FileManager {
      * This method takes an ArrayList of shapes drawn on the CanvasPanel and iterates through returning
      * a string of each command and it's VEC co-ordinates followed by a unix LF line break. The string
      * will then be written into a .VEC file.
-     * @param listOfShapes this is the ArrayList<ArrayList> of shapes used to draw in CanvasPanel.
+     * @param listOfShapes this is the ArrayList of shapes used to draw in CanvasPanel.
      * @return String of commands in VEC format.
      */
     public String saveFile(ArrayList<ArrayList> listOfShapes) {
@@ -144,7 +144,7 @@ public class FileManager {
      * with co-ordinates and pen and fill colours in RGB format, which can be used by CanvasPanel to
      * draw these shapes.
      * @param file this a file .VEC chosen with a fileChooser.
-     * @return ArrayList<ArrayList> of Shapes in the requisite format to be drawn in CanvasPanel.
+     * @return ArrayList of Shapes in the requisite format to be drawn in CanvasPanel.
      */
     public ArrayList<ArrayList> loadFile(File file) {
         ArrayList<ArrayList> list = new ArrayList<ArrayList>();
