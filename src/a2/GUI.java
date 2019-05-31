@@ -60,9 +60,15 @@ public class GUI extends JFrame {
         menuFile.add(menuLoad);
         menuEdit.add(menuUndo);
 
-        //add keyevent for undo menu item
+        //add keyevents for menu items
         KeyStroke keyStrokeToUndo = KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK);
         menuUndo.setAccelerator(keyStrokeToUndo);
+        KeyStroke keyStrokeToSave = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
+        menuSave.setAccelerator(keyStrokeToSave);
+        KeyStroke keyStrokeToLoad = KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK);
+        menuLoad.setAccelerator(keyStrokeToLoad);
+        KeyStroke keyStrokeToNew = KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK);
+        menuNew.setAccelerator(keyStrokeToNew);
         //add action listeners for menuItems
         menuNew.addActionListener(new MenuActionListener());
         menuSave.addActionListener(new MenuActionListener());
