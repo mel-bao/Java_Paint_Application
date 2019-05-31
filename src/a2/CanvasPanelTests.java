@@ -51,11 +51,88 @@ class CanvasPanelTests {
     }
 
     @Test
-    void testAddPlot() {
+    void testSetFillColour() {
         CanvasPanel canvas = new CanvasPanel();
-        Point point = new Point(200,200);
-        Color colour = Color.black;
-        canvas.addPlot(point, colour);
+        Color expectedColour = Color.black;
+        canvas.setFillColour(expectedColour);
+        Color actualColour = canvas.getFillColour();
+        assertEquals(expectedColour, actualColour);
     }
 
+    @Test
+    void testGetFillColour() {
+        CanvasPanel canvas = new CanvasPanel();
+        Color expectedColour = null;
+        Color actualColour = canvas.getFillColour();
+        assertEquals(expectedColour, actualColour);
+    }
+
+    @Test
+    void testSetGetListOfShapes() {
+        CanvasPanel canvas = new CanvasPanel();
+        ArrayList<ArrayList> list = new ArrayList<ArrayList>();
+        ArrayList temp = new ArrayList();
+        Draw tool = new PlotDraw();
+        temp.add(tool);
+        temp.add(0.5);
+        temp.add(0.5);
+        temp.add(Color.blue);
+        list.add(temp);
+
+        canvas.setListOfShapes(list);
+        ArrayList<ArrayList> actualList = canvas.getListOfShapes();
+        assertEquals(list, actualList);
+    }
+
+    @Test
+    void testGetListOfShapes() {
+        CanvasPanel canvas = new CanvasPanel();
+        ArrayList<ArrayList> expectedList = new ArrayList<ArrayList>();
+        ArrayList<ArrayList> actualList = canvas.getListOfShapes();
+        assertEquals(expectedList, actualList);
+    }
+
+    @Test
+    void testClearListOfShapes() {
+        CanvasPanel canvas = new CanvasPanel();
+        ArrayList<ArrayList> list = new ArrayList<ArrayList>();
+        ArrayList temp = new ArrayList();
+        Draw tool = new PlotDraw();
+        temp.add(tool);
+        temp.add(0.5);
+        temp.add(0.5);
+        temp.add(Color.blue);
+        list.add(temp);
+        canvas.setListOfShapes(list);
+        ArrayList<ArrayList> expectedList = new ArrayList<ArrayList>();
+
+        canvas.clearListOfShapes();
+        ArrayList<ArrayList> actualList = canvas.getListOfShapes();
+        assertEquals(expectedList, actualList);
+    }
+
+    @Test
+    void testUndoLastCommand() {
+        CanvasPanel canvas = new CanvasPanel();
+        ArrayList<ArrayList> list = new ArrayList<ArrayList>();
+        ArrayList temp = new ArrayList();
+        Draw tool = new PlotDraw();
+        temp.add(tool);
+        temp.add(0.5);
+        temp.add(0.5);
+        temp.add(Color.blue);
+        list.add(temp);
+        ArrayList<ArrayList> expectedList = new ArrayList<ArrayList>();
+        expectedList.add(temp);
+        temp.clear();
+        temp.add(tool);
+        temp.add(0.5);
+        temp.add(0.5);
+        temp.add(Color.blue);
+        list.add(temp);
+        canvas.setListOfShapes(list);
+        canvas.undoLastCommand();
+        ArrayList<ArrayList> actualList = canvas.getListOfShapes();
+        assertEquals(expectedList, actualList);
+    }
 }
