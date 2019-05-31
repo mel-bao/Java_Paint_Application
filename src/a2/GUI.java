@@ -134,18 +134,22 @@ public class GUI extends JFrame {
             System.out.println("Selected: " + cmd);
             switch (cmd) {
                 case "PLOT":
+                    toolLabel.setText("");
                     PlotDraw plot = new PlotDraw();
                     canvas.setTool(plot);
                     break;
                 case "LINE":
+                    toolLabel.setText("");
                     LineDraw line = new LineDraw();
                     canvas.setTool(line);
                     break;
                 case "RECTANGLE":
+                    toolLabel.setText("");
                     RectangleDraw rect = new RectangleDraw();
                     canvas.setTool(rect);
                     break;
                 case "ELLIPSE":
+                    toolLabel.setText("");
                     EllipseDraw elli = new EllipseDraw();
                     canvas.setTool(elli);
                     break;
@@ -155,6 +159,7 @@ public class GUI extends JFrame {
                     canvas.setTool(poly);
                     break;
                 case "PEN":
+                    toolLabel.setText("");
                     Color c = JColorChooser.showDialog(null, "Choose a Pen Colour", Color.black);
                     canvas.setColour(c);
                     break;
@@ -167,6 +172,7 @@ public class GUI extends JFrame {
                     } else {
                         canvas.setFillColour(null);
                     }
+                    toolLabel.setText("");
                     break;
             }
         }
