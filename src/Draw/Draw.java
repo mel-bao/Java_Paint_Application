@@ -18,7 +18,8 @@ public abstract class Draw {
 
     /**
      * abstract method draw()
-     @return void
+     * @param list List of tool instance, Points, pen colour and fill colour.
+     * @param g Java Swing paint graphics.
      */
     public abstract void draw(List list, Graphics g);
 
