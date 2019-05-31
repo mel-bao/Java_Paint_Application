@@ -9,14 +9,17 @@ import Draw.*;
 import a2.CanvasPanel;
 import org.junit.jupiter.api.*;
 
-
+/**
+ * <h1>Test CanvasPanel Class</h1>
+ *
+ * @author Melanie Howard
+ * @version 1.0
+ */
 class CanvasPanelTests {
 
-    @BeforeEach
-    public void setUp() {
-
-    }
-
+    /**
+     * Tests CanvasPanel.setTool
+     */
     @Test
     void testSetTool() {
         CanvasPanel canvas = new CanvasPanel();
@@ -26,6 +29,9 @@ class CanvasPanelTests {
         assertEquals(expectedTool, actualTool);
     }
 
+    /**
+     * Tests CanvasPanel.getTool
+     */
     @Test
     void testGetTool() {
         CanvasPanel canvas = new CanvasPanel();
@@ -34,6 +40,9 @@ class CanvasPanelTests {
         assertEquals(expectedTool, actualTool);
     }
 
+    /**
+     * Tests CanvasPanel.setColour
+     */
     @Test
     void testSetColour() {
         CanvasPanel canvas = new CanvasPanel();
@@ -43,6 +52,9 @@ class CanvasPanelTests {
         assertEquals(expectedColour, actualColour);
     }
 
+    /**
+     * Tests CanvasPanel.getColour
+     */
     @Test
     void testGetColour() {
         CanvasPanel canvas = new CanvasPanel();
@@ -51,6 +63,9 @@ class CanvasPanelTests {
         assertEquals(expectedColour, actualColour);
     }
 
+    /**
+     * Tests CanvasPanel.setFillColour
+     */
     @Test
     void testSetFillColour() {
         CanvasPanel canvas = new CanvasPanel();
@@ -60,6 +75,9 @@ class CanvasPanelTests {
         assertEquals(expectedColour, actualColour);
     }
 
+    /**
+     * Tests CanvasPanel.getFillColour
+     */
     @Test
     void testGetFillColour() {
         CanvasPanel canvas = new CanvasPanel();
@@ -68,8 +86,11 @@ class CanvasPanelTests {
         assertEquals(expectedColour, actualColour);
     }
 
+    /**
+     * Tests CanvasPanel.setListOfShapes
+     */
     @Test
-    void testSetGetListOfShapes() {
+    void testSetListOfShapes() {
         CanvasPanel canvas = new CanvasPanel();
         ArrayList<ArrayList> list = new ArrayList<ArrayList>();
         ArrayList temp = new ArrayList();
@@ -85,6 +106,9 @@ class CanvasPanelTests {
         assertEquals(list, actualList);
     }
 
+    /**
+     * Tests CanvasPanel.getListOfShapes
+     */
     @Test
     void testGetListOfShapes() {
         CanvasPanel canvas = new CanvasPanel();
@@ -93,6 +117,9 @@ class CanvasPanelTests {
         assertEquals(expectedList, actualList);
     }
 
+    /**
+     * Tests CanvasPanel.clearListOfShapes
+     */
     @Test
     void testClearListOfShapes() {
         CanvasPanel canvas = new CanvasPanel();
@@ -112,6 +139,9 @@ class CanvasPanelTests {
         assertEquals(expectedList, actualList);
     }
 
+    /**
+     * Tests CanvasPanel.undoLastCommand
+     */
     @Test
     void testUndoLastCommand() {
         CanvasPanel canvas = new CanvasPanel();

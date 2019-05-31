@@ -6,14 +6,37 @@ import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * <h2>Draw a Polygon</h2>
+ * class to handle drawing a polygon.
+ *
+ * @author Melanie Howard
+ * @version 1.0
+ */
 public class PolygonDraw extends Draw {
+    /**
+     * pen colour of the shape to be drawn.
+     */
     private Color colour = null;
+    /**
+     * Point of the shape to be drawn.
+     */
     private Point point = null;
+    /**
+     * fill colour of the shape to be drawn.
+     */
     private Color fill = null;
+
+    /**
+     * This method draws the shape on the panel it is called from, with the relevant fill and pen colours.
+     * If param list does not have the required information, returns.
+     * @param list List of tool instance, Points, pen colour and fill colour.
+     * @param g Java Swing paint graphics.
+     */
     public void draw(List list, Graphics g) {
         Iterator it = list.iterator();
         //if the list does not contain the required two points, return.
-        if(list.size()<3)
+        if(list.size()<9)
         {
             return;
         }

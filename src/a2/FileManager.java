@@ -8,8 +8,23 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * <h1>Class to Manage Saving or Loading File or ArrayList Formats</h1>
+ * This class provides methods to iterate through either a file or ArrayList of shapes to draw
+ * and return these formatted into the relevant variable type.
+ *
+ * @author Melanie Howard
+ * @version 1.0
+ */
 public class FileManager {
 
+    /**
+     * This method takes an ArrayList of shapes drawn on the CanvasPanel and iterates through returning
+     * a string of each command and it's VEC co-ordinates followed by a unix LF line break. The string
+     * will then be written into a .VEC file.
+     * @param listOfShapes this is the ArrayList<ArrayList> of shapes used to draw in CanvasPanel.
+     * @return String of commands in VEC format.
+     */
     public String saveFile(ArrayList<ArrayList> listOfShapes) {
         String string = "";
         String pen = "";
@@ -124,6 +139,13 @@ public class FileManager {
         return string;
     }
 
+    /**
+     * This method takes a file in VEC format and iterates through it, returning ArrayList of instances off Shapes
+     * with co-ordinates and pen and fill colours in RGB format, which can be used by CanvasPanel to
+     * draw these shapes.
+     * @param file this a file .VEC chosen with a fileChooser.
+     * @return ArrayList<ArrayList> of Shapes in the requisite format to be drawn in CanvasPanel.
+     */
     public ArrayList<ArrayList> loadFile(File file) {
         ArrayList<ArrayList> list = new ArrayList<ArrayList>();
         ArrayList<String> strings = new ArrayList<String>();

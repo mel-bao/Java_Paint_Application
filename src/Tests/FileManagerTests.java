@@ -12,8 +12,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * <h1>Test FileManager class</h1>
+ *
+ * @author Melanie Howard
+ * @version 1.0
+ */
 public class FileManagerTests {
 
+    /**
+     * tests FileManager.saveFile
+     */
     @Test
     void testSaveFile() {
         FileManager file = new FileManager();
@@ -31,6 +40,9 @@ public class FileManagerTests {
         assertEquals(actualString, expectedString);
     }
 
+    /**
+     * tests FileManager.loadFile
+     */
     @Test
     void testLoadFile() {
         FileManager file = new FileManager();
